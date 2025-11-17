@@ -21,6 +21,15 @@
         </div>
     </nav>
 
+    <div class="container mt-3">
+        <?php if (session()->getFlashdata('mensaje_juego')): ?>
+            <div class="alert alert-success alert-dismissible fade show shadow" role="alert">
+                <strong><?= session()->getFlashdata('mensaje_juego') ?></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+    </div>
+
     <div class="container">
 
         <div class="alert alert-info shadow-sm">

@@ -11,46 +11,69 @@
 
 <body class="bg-light">
 
-    <div class="container mt-5 text-center">
-        <h2>Sudoku 4x4</h2>
-        <p>Nivel: <strong>Fácil</strong> (Ejemplo)</p>
+    <div class="container mt-4">
+        <div class="row">
 
-        <form action="<?= base_url('sudoku/validar') ?>" method="post">
-            <div class="sudoku-container mt-4">
-                <div class="sudoku-grid">
-                    <?php
-                    // Loop de 0 a 15 (16 celdas)
-                    for ($i = 0; $i < 16; $i++):
-                    ?>
-                        <div class="cell">
-                            <?php
-                            $valor = $tablero[$i]; // El valor que viene del controlador
-                            $esPista = !empty($valor); // ¿Es una pista fija?
+            <div class="col-md-8 text-center">
+                <h2>Sudoku 4x4</h2>
+                <p>Nivel: <strong class="text-uppercase"><?= $dificultad ?></strong></p>
+
+                <form action="<?= base_url('sudoku/validar') ?>" method="post">
+
+                    <div class="sudoku-container mt-4">
+                        <div class="sudoku-grid">
+                            <?php for ($i = 0; $i < 16; $i++):
+                                $valor = $tablero[$i];
+                                $esPista = !empty($valor);
                             ?>
-
-                            <div class="cell">
-                                <input type="text"
-                                    name="c<?= $i ?>"
-                                    class="cell-input"
-                                    maxlength="1"
-                                    autocomplete="off"
-
-                                    /* Si tiene valor, lo mostramos */
-                                    value="<?= $valor ?>"
-
-                                    /* Si es pista, que sea de solo lectura */
-                                    <?= $esPista ? 'readonly' : '' ?>>
-                            </div>
+                                <div class="cell">
+                                    <input type="text" name="c<?= $i ?>"
+                                        class="cell-input" maxlength="1" autocomplete="off"
+                                        value="<?= $valor ?>"
+                                        <?= $esPista ? 'readonly' : '' ?>>
+                                </div>
+                            <?php endfor; ?>
                         </div>
-                    <?php endfor; ?>
+                    </div>
+
+                    <div class="mt-4 mb-5">
+                        <button type="submit" class="btn btn-primary btn-lg shadow">Verificar Solución</button>
+                        <a href="<?= base_url('panel') ?>" class="btn btn-outline-secondary">Volver al Panel</a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        🏆 Mis Mejores Tiempos
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <?php if (empty($mejoresPartidas)): ?>
+                            <li class="list-group-item text-muted text-center p-4">
+                                Aún no tenés victorias registradas. <br>
+                                ¡Ganá esta para aparecer acá!
+                            </li>
+                        <?php else: ?>
+                            <?php foreach ($mejoresPartidas as $index => $partida): ?>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="fw-bold">#<?= $index + 1 ?></span>
+                                        <small class="text-muted ms-2"><?= date('d/m/Y', strtotime($partida['fecha'])) ?></small>
+                                        <br>
+                                        <span class="badge bg-secondary"><?= ucfirst($partida['nivel']) ?></span>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill fs-6">
+                                        <?= $partida['tiempo_segundos'] ?> seg
+                                    </span>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </ul>
                 </div>
             </div>
 
-            <div class="mt-4">
-                <button type="submit" class="btn btn-primary">Verificar Solución</button>
-                <a href="<?= base_url('sudoku') ?>" class="btn btn-secondary">Reiniciar</a>
-            </div>
-        </form>
+        </div>
     </div>
 
     <script src="<?= base_url('bootstrap/js/bootstrap.bundle.min.js') ?>"></script>

@@ -17,23 +17,30 @@ class AuthController extends BaseController
     {
         $userModel = new UserModel();
 
-        // Datos que vienen del form
+        // 1. Recibimos los datos CRUDOS del formulario
         $data = [
             'nombre'   => $this->request->getPost('nombre'),
             'apellido' => $this->request->getPost('apellido'),
             'email'    => $this->request->getPost('email'),
             'usuario'  => $this->request->getPost('usuario'),
-            // Encriptamos la contraseña por seguridad (Examen Point +1)
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'password' => $this->request->getPost('password')
         ];
 
-        // Guardamos en la base de datos
+        // 2. PREGUNTAMOS: ¿Son válidos estos datos?
+        if (!$userModel->validate($data)) {
+            // Si NO son válidos (ej: usuario repetido), volvemos atrás con los errores
+            return redirect()->back()
+                ->withInput() // Mantiene lo que escribió
+                ->with('errors', $userModel->errors()); // Muestra la lista roja
+        }
+
+        // 3. Si pasó el filtro, recién ahí encriptamos y guardamos
+        $data['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
+
         $userModel->insert($data);
 
-        // Redirigimos al login (que haremos después)
         return redirect()->to('login')->with('mensaje', '¡Registro exitoso! Ahora iniciá sesión.');
     }
-
     // Muestra el login (lo dejamos listo para el próximo paso)
     public function login()
     {

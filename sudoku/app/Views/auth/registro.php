@@ -16,6 +16,16 @@
                         <h4>Registro de Jugador</h4>
                     </div>
                     <div class="card-body">
+                        <?php if (session()->has('errors')): ?>
+                            <div class="alert alert-danger">
+                                <ul>
+                                    <?php foreach (session('errors') as $error): ?>
+                                        <li><?= esc($error) ?></li>
+                                    <?php endforeach ?>
+                                </ul>
+                            </div>
+                        <?php endif; ?>
+
                         <form action="<?= base_url('registro/guardar') ?>" method="post">
 
                             <div class="row mb-3">
