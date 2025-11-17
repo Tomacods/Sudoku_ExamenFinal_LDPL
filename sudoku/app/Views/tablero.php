@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Sudoku 4x4 - Examen Final</title>
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('css/estilos.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/sudoku.css') ?>">
 
 </head>
 
@@ -23,10 +23,24 @@
                     for ($i = 0; $i < 16; $i++):
                     ?>
                         <div class="cell">
-                            <input type="text" name="c<?= $i ?>"
-                                class="cell-input"
-                                maxlength="1"
-                                autocomplete="off">
+                            <?php
+                            $valor = $tablero[$i]; // El valor que viene del controlador
+                            $esPista = !empty($valor); // ¿Es una pista fija?
+                            ?>
+
+                            <div class="cell">
+                                <input type="text"
+                                    name="c<?= $i ?>"
+                                    class="cell-input"
+                                    maxlength="1"
+                                    autocomplete="off"
+
+                                    /* Si tiene valor, lo mostramos */
+                                    value="<?= $valor ?>"
+
+                                    /* Si es pista, que sea de solo lectura */
+                                    <?= $esPista ? 'readonly' : '' ?>>
+                            </div>
                         </div>
                     <?php endfor; ?>
                 </div>

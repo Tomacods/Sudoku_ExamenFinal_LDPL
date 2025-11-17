@@ -14,8 +14,9 @@ $routes->get('/login', 'AuthController::login');
 
 $routes->post('/login/autenticar', 'AuthController::autenticar');
 $routes->get('/logout', 'AuthController::logout');
-$routes->get('/panel', function () {
-    echo "<h1>¡Bienvenido " . session('nombre') . "! 🎮</h1>";
-    echo "<p>Acá vas a elegir la dificultad del Sudoku.</p>";
-    echo "<a href='" . base_url('logout') . "'>Cerrar Sesión</a>";
-});
+
+// Ruta del panel usando el Controlador Nuevo
+$routes->get('panel', 'Panel::index');
+
+// Ruta para crear el juego (la vamos a usar en el próximo paso)
+$routes->post('sudoku/crear', 'Sudoku::crearPartida');
