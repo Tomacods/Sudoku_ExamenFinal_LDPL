@@ -51,7 +51,7 @@
                     <ul class="list-group list-group-flush">
                         <?php if (empty($mejoresPartidas)): ?>
                             <li class="list-group-item text-muted text-center p-4">
-                                Aún no tenés victorias registradas. <br>
+                                Todavia no tenés victorias registradas. <br>
                                 ¡Ganá esta para aparecer acá!
                             </li>
                         <?php else: ?>

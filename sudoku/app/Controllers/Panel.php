@@ -8,7 +8,7 @@ class Panel extends BaseController
 {
     public function index()
     {
-        // 1. Verificar si está logueado (Seguridad básica)
+        // verifico si está logueado
         if (!session()->get('logueado')) {
             return redirect()->to('login');
         }
@@ -16,15 +16,15 @@ class Panel extends BaseController
         $db = \Config\Database::connect();
         $usuarioId = session()->get('id');
 
-        // 2. Buscar la última partida del usuario (Requisito del examen)
-        // Hacemos una consulta directa a la tabla 'partidas'
+        // Busco la última partida del usuario 
+        // hago una consulta a la base de datos de la ultima partida del usuario
         $ultimaPartida = $db->table('partidas')
             ->where('usuario_id', $usuarioId)
             ->orderBy('fecha', 'DESC')
             ->get()
             ->getRowArray(); // Trae solo una fila
 
-        // 3. Mandar los datos a la vista
+        //con esto mando los datos a la vista
         $datos = [
             'nombre' => session()->get('nombre'),
             'ultimaPartida' => $ultimaPartida

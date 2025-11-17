@@ -43,7 +43,7 @@
                     </span>
                 </p>
             <?php else: ?>
-                <p class="mb-0">Todavía no jugaste ninguna partida. ¡Esta será la primera!</p>
+                <p class="mb-0">Todavía no jugaste ninguna partida. ¡Esta va a ser la primera!</p>
             <?php endif; ?>
         </div>
 

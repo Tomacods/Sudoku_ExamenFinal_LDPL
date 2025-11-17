@@ -13,19 +13,18 @@ class UserModel extends Model
 
     // --- REGLAS DE VALIDACIÓN ---
     protected $validationRules = [
-        'nombre'   => 'required|min_length(3)',
-        'apellido' => 'required|min_length(3)',
-        'email'    => 'required|valid_email|is_unique[usuarios.email]', // Frena mails repetidos
-        'usuario'  => 'required|min_length(3)|is_unique[usuarios.usuario]', // Frena usuarios repetidos
-        'password' => 'required|min_length(4)'
+        'nombre'   => 'required|min_length[3]',
+        'apellido' => 'required|min_length[3]',
+        'email'    => 'required|valid_email|is_unique[usuarios.email]',
+        'usuario'  => 'required|min_length[3]|is_unique[usuarios.usuario]',
+        'password' => 'required|min_length[4]'
     ];
-
     protected $validationMessages = [
         'email' => [
             'is_unique' => 'Ese correo ya está registrado. Probá con otro.'
         ],
         'usuario' => [
-            'is_unique' => 'El usuario ya existe. ¡Sé más original!'
+            'is_unique' => 'El usuario ya existe.'
         ]
     ];
 }
