@@ -20,11 +20,9 @@
                 <h5 class="card-title">Bootstrap está corriendo localmente</h5>
                 <p class="card-text">Si ves esto lindo y ordenado, ya tenés la base para tu Sudoku.</p>
 
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <a href="<?= base_url('sudoku') ?>" class="btn btn-primary btn-lg">
-                        🎮 Ir al Sudoku
-                    </a>
-                </button>
+                <a href="<?= base_url('sudoku') ?>" class="btn btn-primary btn-lg">
+                    🎮 Ir al Sudoku
+                </a>
             </div>
             <div class="card-footer text-muted">
                 CodeIgniter 4 + Bootstrap 5
