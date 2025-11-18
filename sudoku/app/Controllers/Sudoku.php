@@ -41,7 +41,8 @@ class Sudoku extends BaseController
             'tablero' => session()->get('tablero_juego'),
             'dificultad' => $dificultadActual,
             'rankingGlobal' => $rankingGlobal,    // Mandamos las dos listas
-            'rankingPersonal' => $rankingPersonal // Mandamos las dos listas
+            'rankingPersonal' => $rankingPersonal, // Mandamos las dos listas
+            'hora_inicio' => session()->get('hora_inicio') // <-- AÑADIMOS ESTO
         ];
 
         return view('tablero', $data);
@@ -203,20 +204,11 @@ class Sudoku extends BaseController
                 'redirect' => base_url('panel')
             ]);
         } else {
-            // Guardamos la derrota en la DB
-            $tiempoSegundos = time() - $inicio;
-            $db = \Config\Database::connect();
-            $db->table('partidas')->insert([
-                'usuario_id'      => $usuarioId,
-                'nivel'           => $dificultad,
-                'tiempo_segundos' => $tiempoSegundos, // Opcional, podrías poner 0 si no te interesa el tiempo en derrotas
-                'fecha'           => date('Y-m-d H:i:s'),
-                'resultado'       => 'derrota'
-            ]);
+            // Guardamos derrota (opcional, si querés llenar la base)
             // Devolvemos JSON de ERROR
             return $this->response->setJSON([
                 'status' => 'error',
-                'msg' => 'Has perdido esta partida'
+                'msg' => '¡Ups! Hay errores en el tablero. Revisá los números.'
             ]);
         }
     }

@@ -30,7 +30,7 @@
                                 ?>
                                     <div class="cell">
                                         <input type="text" name="c<?= $i ?>"
-                                            class="cell-input" maxlength="1" autocomplete="off"
+                                            class="cell-input" maxlength="1" autocomplete="off" pattern="[1-4]"
                                             value="<?= $valor ?>"
                                             <?= $esPista ? 'readonly' : '' ?>>
                                     </div>
@@ -133,7 +133,6 @@
             const minutos = Math.floor(segundosTranscurridos / 60);
             const segundos = segundosTranscurridos % 60;
 
-            // Formateamos para que siempre tengan dos dígitos (ej: 01:09)
             const minutosFormateados = String(minutos).padStart(2, '0');
             const segundosFormateados = String(segundos).padStart(2, '0');
 
@@ -142,7 +141,7 @@
 
         // Actualizamos el timer inmediatamente al cargar la página
         actualizarTimer();
-        // Y luego lo actualizamos cada segundo
+
         const intervalID = setInterval(actualizarTimer, 1000);
 
 
@@ -196,16 +195,16 @@
                 .then(data => {
                     if (data.status === 'success') {
 
-                        // Detenemos el temporizador al ganar
+
                         clearInterval(intervalID);
 
-                        // ALERTA DE VICTORIA (DARK & VIOLETA)
+
                         Swal.fire({
                             title: '¡VICTORIA!',
                             text: data.msg,
                             icon: 'success',
-                            background: '#1a1a2e', // Fondo oscuro azulado
-                            color: '#fff', // Texto blanco
+                            background: '#1a1a2e',
+                            color: '#fff',
                             confirmButtonText: 'Volver al Panel',
                             confirmButtonColor: '#6a11cb', // Botón Violeta
                             backdrop: `rgba(0,0,0,0.8) url("<?= base_url('images/confetti.gif') ?>") left top no-repeat` // Opcional: fondo oscuro
@@ -215,10 +214,10 @@
 
                     } else {
 
-                        // Detenemos el temporizador al perder
+
                         clearInterval(intervalID);
 
-                        // ALERTA DE ERROR (DARK & ROJO)
+
                         Swal.fire({
                             title: 'Fin de la partida',
                             text: data.msg,
@@ -240,6 +239,18 @@
                         color: '#fff'
                     });
                 });
+        });
+
+        // 3. LÓGICA DE VALIDACIÓN DE CELDAS EN TIEMPO REAL
+        document.querySelectorAll('.cell-input').forEach(input => {
+            // Se ejecuta cada vez que el usuario escribe algo en una celda
+            input.addEventListener('input', function(e) {
+                // this.value es el contenido actual de la celda
+                // .replace(/[^1-4]/g, '') busca cualquier caracter que NO SEA (^) 1, 2, 3 o 4
+                // y lo reemplaza por nada (''). La 'g' asegura que reemplace todas las ocurrencias.
+                // Esto elimina letras, el cero, símbolos, etc.
+                this.value = this.value.replace(/[^1-4]/g, '');
+            });
         });
     </script>
 
