@@ -206,9 +206,9 @@
                     if (data.status === 'success') {
 
 
-                        // Si ganamos, limpiamos el progreso guardado para esta dificultad
+                        /* Si ganamos, limpiamos el progreso guardado para esta dificultad
                         // para no cargar un tablero resuelto la próxima vez.
-                        // localStorage.removeItem(`sudoku_progreso_<?= $dificultad ?>`);
+                        // localStorage.removeItem(`sudoku_progreso_<?= $dificultad ?>`);*/
 
 
                         clearInterval(intervalID);
@@ -268,35 +268,35 @@
             });
         });
 
-        // // 4. LÓGICA DE AUTOGUARDADO (LOCALSTORAGE)
-        // (function() {
-        //     const storageKey = `sudoku_progreso_<?= $dificultad ?>`;
-        //     const inputs = document.querySelectorAll('.cell-input');
+        /* // // 4. LÓGICA DE AUTOGUARDADO (LOCALSTORAGE)
+         // (function() {
+         //    const storageKey = `sudoku_progreso_<?= $dificultad ?>`;
+         //     const inputs = document.querySelectorAll('.cell-input');
 
-        //     // --- FUNCIÓN PARA CARGAR EL PROGRESO ---
-        //     function cargarProgreso() {
-        //         const progresoGuardado = localStorage.getItem(storageKey);
-        //         if (progresoGuardado) {
-        //             const valores = JSON.parse(progresoGuardado);
-        //             inputs.forEach((input, index) => {
-        //                 // Solo rellenamos las celdas que el usuario puede editar
-        //                 if (!input.readOnly) {
-        //                     input.value = valores[index] || '';
-        //                 }
-        //             });
-        //         }
-        //     }
+         //     // --- FUNCIÓN PARA CARGAR EL PROGRESO ---
+         //     function cargarProgreso() {
+         //         const progresoGuardado = localStorage.getItem(storageKey);
+         //         if (progresoGuardado) {
+         //             const valores = JSON.parse(progresoGuardado);
+         //             inputs.forEach((input, index) => {
+         //                 // Solo rellenamos las celdas que el usuario puede editar
+         //                 if (!input.readOnly) {
+         //                     input.value = valores[index] || '';
+         //                 }
+         //             });
+         //         }
+         //     }
 
-        //     // --- FUNCIÓN PARA GUARDAR EL PROGRESO ---
-        //     function guardarProgreso() {
-        //         const progresoActual = Array.from(inputs).map(input => input.value);
-        //         localStorage.setItem(storageKey, JSON.stringify(progresoActual));
-        //     }
+         //     // --- FUNCIÓN PARA GUARDAR EL PROGRESO ---
+         //     function guardarProgreso() {
+         //         const progresoActual = Array.from(inputs).map(input => input.value);
+         //         localStorage.setItem(storageKey, JSON.stringify(progresoActual));
+         //     }
 
-        //     // --- EVENTOS ---
-        //     document.addEventListener('DOMContentLoaded', cargarProgreso); // Cargar al iniciar
-        //     inputs.forEach(input => input.addEventListener('input', guardarProgreso)); // Guardar al escribir
-        // })();
+         //     // --- EVENTOS ---
+         //     document.addEventListener('DOMContentLoaded', cargarProgreso); // Cargar al iniciar
+         //     inputs.forEach(input => input.addEventListener('input', guardarProgreso)); // Guardar al escribir
+         // })();*/
     </script>
 
     <script src="<?= base_url('bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
