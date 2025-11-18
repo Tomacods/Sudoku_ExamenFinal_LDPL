@@ -19,6 +19,7 @@
                 <div class="p-4 rounded shadow-lg" style="background-color: rgba(0,0,0,0.3);">
                     <h2 class="text-white fw-bold">Sudoku 4x4</h2>
                     <p class="text-white">Nivel: <strong class="text-uppercase text-warning"><?= $dificultad ?></strong></p>
+                    <p class="text-white mb-0">Tiempo: <span id="timer" class="fw-bold text-warning">00:00</span></p>
 
                     <form id="formSudoku" action="<?= base_url('sudoku/validar') ?>" method="post">
                         <div class="sudoku-container mt-4">
@@ -38,12 +39,12 @@
                         </div>
 
                         <div class="mt-4 mb-3">
-                            <button type="submit" class="btn btn-light btn-lg px-5 fw-bold text-primary shadow">
-                                ✅ Verificar Solución
+                            <button type="submit" id="btnVerificar" class="btn btn-light btn-lg px-5 fw-bold text-primary shadow">
+                                Verificar Solución
                             </button>
-                            <div class="mt-3">
+                            <div class="mt-3" id="divVolverPanel">
                                 <a href="<?= base_url('panel') ?>" class="text-white text-decoration-none">
-                                    <small>⬅ Volver al Panel</small>
+                                    <small> Volver al Panel</small>
                                 </a>
                             </div>
                         </div>
@@ -121,6 +122,30 @@
     </div>
 
     <script>
+        // 0. LÓGICA DEL TEMPORIZADOR
+        const horaInicio = <?= $hora_inicio ?>; // Timestamp PHP
+        const timerElement = document.getElementById('timer');
+
+        function actualizarTimer() {
+            const ahora = Math.floor(Date.now() / 1000); // Timestamp JS en segundos
+            const segundosTranscurridos = ahora - horaInicio;
+
+            const minutos = Math.floor(segundosTranscurridos / 60);
+            const segundos = segundosTranscurridos % 60;
+
+            // Formateamos para que siempre tengan dos dígitos (ej: 01:09)
+            const minutosFormateados = String(minutos).padStart(2, '0');
+            const segundosFormateados = String(segundos).padStart(2, '0');
+
+            timerElement.textContent = `${minutosFormateados}:${segundosFormateados}`;
+        }
+
+        // Actualizamos el timer inmediatamente al cargar la página
+        actualizarTimer();
+        // Y luego lo actualizamos cada segundo
+        const intervalID = setInterval(actualizarTimer, 1000);
+
+
         // 1. LÓGICA DEL SWITCH DE RANKING
         const switchRanking = document.getElementById('switchRanking');
         const listaGlobal = document.getElementById('listaGlobal');
@@ -145,6 +170,20 @@
         document.getElementById('formSudoku').addEventListener('submit', function(e) {
             e.preventDefault();
             let formData = new FormData(this);
+            const btnVerificar = document.getElementById('btnVerificar');
+            const divVolverPanel = document.getElementById('divVolverPanel');
+
+            // Cambiamos el botón inmediatamente
+            btnVerificar.type = 'button'; // Para que no vuelva a enviar el form
+            btnVerificar.innerHTML = '🔄 Volver a Jugar';
+            btnVerificar.classList.remove('btn-light', 'text-primary');
+            btnVerificar.classList.add('btn-info', 'text-dark');
+            btnVerificar.onclick = () => {
+                window.location.href = '<?= base_url('panel') ?>';
+            };
+
+            // Ocultamos el enlace redundante
+            divVolverPanel.style.display = 'none';
 
             fetch("<?= base_url('sudoku/validar') ?>", {
                     method: "POST",
@@ -156,6 +195,9 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
+
+                        // Detenemos el temporizador al ganar
+                        clearInterval(intervalID);
 
                         // ALERTA DE VICTORIA (DARK & VIOLETA)
                         Swal.fire({
@@ -173,9 +215,12 @@
 
                     } else {
 
+                        // Detenemos el temporizador al perder
+                        clearInterval(intervalID);
+
                         // ALERTA DE ERROR (DARK & ROJO)
                         Swal.fire({
-                            title: 'Incorrecto',
+                            title: 'Fin de la partida',
                             text: data.msg,
                             icon: 'error',
                             background: '#1a1a2e',
