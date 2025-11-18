@@ -103,12 +103,22 @@
                         <?php else: ?>
                             <?php foreach ($rankingPersonal as $index => $puesto): ?>
                                 <li class="list-group-item list-group-item-dark-custom d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <span class="fw-bold text-info">Top <?= $index + 1 ?></span>
-                                        <small class="text-white-50 ms-2"><?= date('d/m/Y', strtotime($puesto['fecha'])) ?></small>
+                                    <div class="d-flex align-items-center">
+                                        <span class="fw-bold text-info me-3">#<?= $index + 1 ?></span>
+                                        <div>
+                                            <span class="badge 
+                                                <?php if ($puesto['nivel'] == 'facil') echo 'bg-success';
+                                                elseif ($puesto['nivel'] == 'medio') echo 'bg-warning text-dark';
+                                                else echo 'bg-danger'; ?>">
+                                                <?= ucfirst($puesto['nivel']) ?>
+                                            </span>
+                                            <small class="d-block text-white-50 mt-1">
+                                                <?= date('d/m/Y', strtotime($puesto['fecha'])) ?>
+                                            </small>
+                                        </div>
                                     </div>
                                     <span class="badge bg-info text-dark rounded-pill">
-                                        ⏱ <?= $puesto['tiempo_segundos'] ?>s
+                                        ⏱&nbsp;<?= $puesto['tiempo_segundos'] ?>s
                                     </span>
                                 </li>
                             <?php endforeach; ?>

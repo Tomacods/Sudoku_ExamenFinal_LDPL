@@ -30,7 +30,6 @@ class Sudoku extends BaseController
             ->select('partidas.*, usuarios.usuario as nombre_jugador')
             ->join('usuarios', 'usuarios.id = partidas.usuario_id')
             ->where('partidas.usuario_id', $usuarioId) // <-- FILTRO POR VOS
-            ->where('partidas.nivel', $dificultadActual)
             ->where('partidas.resultado', 'victoria')
             ->orderBy('partidas.tiempo_segundos', 'ASC')
             ->limit(5)
