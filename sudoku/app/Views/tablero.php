@@ -18,7 +18,7 @@
                 <h2>Sudoku 4x4</h2>
                 <p>Nivel: <strong class="text-uppercase"><?= $dificultad ?></strong></p>
 
-                <form action="<?= base_url('sudoku/validar') ?>" method="post">
+                <form action="<?= base_url('sudoku/validar') ?>" method="post" id="formSudoku">
 
                     <div class="sudoku-container mt-4">
                         <div class="sudoku-grid">
@@ -77,6 +77,59 @@
     </div>
 
     <script src="<?= base_url('bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+
+    <script src="<?= base_url('js/sweetalert2.all.min.js') ?>"></script>
+
+    <script>
+        // 1. Escuchamos el envío del formulario
+        document.getElementById('formSudoku').addEventListener('submit', function(e) {
+            e.preventDefault(); // ¡ALTO! Detenemos la recarga de página
+
+            // 2. Preparamos los datos
+            let formData = new FormData(this);
+
+            // 3. Enviamos por AJAX (Fetch)
+            fetch("<?= base_url('sudoku/validar') ?>", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                })
+                .then(response => response.json()) // Convertimos la respuesta a JSON
+                .then(data => {
+
+                    // 4. Reaccionamos según el resultado
+                    if (data.status === 'success') {
+
+                        Swal.fire({
+                            title: '¡Excelente!',
+                            text: data.msg,
+                            icon: 'success',
+                            confirmButtonText: 'Ir al Panel'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = data.redirect; // Nos vamos al panel
+                            }
+                        });
+
+                    } else {
+
+                        Swal.fire({
+                            title: 'Incorrecto',
+                            text: data.msg,
+                            icon: 'error',
+                            confirmButtonText: 'Seguir Intentando'
+                        });
+
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Error', 'Algo salió mal con el servidor', 'error');
+                });
+        });
+    </script>
 </body>
 
 </html>

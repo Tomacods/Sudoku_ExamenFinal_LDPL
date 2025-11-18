@@ -145,9 +145,8 @@ class Sudoku extends BaseController
 
     public function validar()
     {
-        // esto sirve para recuperar la solucion correcta de la sesion
         if (!session()->has('tablero_resuelto')) {
-            return redirect()->to('panel');
+            return $this->response->setJSON(['status' => 'error', 'msg' => 'La sesión expiró. Recargá la página.']);
         }
 
         $solucionReal = session()->get('tablero_resuelto');
@@ -155,49 +154,45 @@ class Sudoku extends BaseController
         $dificultad = session()->get('dificultad_actual');
         $inicio = session()->get('hora_inicio');
 
-        // armo el tablero que mando el usuario
-        $tableroUsuario = [];
         $esCorrecto = true;
 
+        // Validamos
         for ($i = 0; $i < 16; $i++) {
             $valorIngresado = $this->request->getPost('c' . $i);
-
-            // Guardo lo que puso para recargar si se equivoca
-            $tableroUsuario[$i] = $valorIngresado;
-
-            // comparo con la solucion
             if ($valorIngresado != $solucionReal[$i]) {
                 $esCorrecto = false;
+                break; // Si ya falló uno, para qué seguir
             }
         }
 
-        // calculo el tiempo y el resultado
-        $tiempoSegundos = time() - $inicio;
-        $resultado = $esCorrecto ? 'victoria' : 'derrota';
-
-        // guardo en la base de datos
-        $db = \Config\Database::connect();
-        $db->table('partidas')->insert([
-            'usuario_id'      => $usuarioId,
-            'nivel'           => $dificultad,
-            'tiempo_segundos' => $tiempoSegundos,
-            'fecha'           => date('Y-m-d H:i:s'),
-            'resultado'       => $resultado
-        ]);
-
-        // redirijo con mensaje
         if ($esCorrecto) {
-            // Borro la partida de sesion para que no pueda volver atras
+            // Guardamos en la DB
+            $tiempoSegundos = time() - $inicio;
+            $db = \Config\Database::connect();
+            $db->table('partidas')->insert([
+                'usuario_id'      => $usuarioId,
+                'nivel'           => $dificultad,
+                'tiempo_segundos' => $tiempoSegundos,
+                'fecha'           => date('Y-m-d H:i:s'),
+                'resultado'       => 'victoria'
+            ]);
+
+            // Limpiamos sesión
             session()->remove(['tablero_juego', 'tablero_resuelto']);
 
-            return redirect()->to('panel')->with(
-                'mensaje_juego',
-                "¡GANASTE! 🏆 resolviste el nivel $dificultad en $tiempoSegundos segundos."
-            );
+            // Devolvemos JSON de ÉXITO
+            return $this->response->setJSON([
+                'status' => 'success',
+                'msg' => "¡GANASTE! 🏆 Tiempo: $tiempoSegundos segundos.",
+                'redirect' => base_url('panel')
+            ]);
         } else {
-            return redirect()->back()
-                ->with('error', '¡Ups! Hay errores en el tablero. Intentalo de nuevo.')
-                ->withInput(); // esto mantiene los numeros que puso
+            // Guardamos derrota (opcional, si querés llenar la base)
+            // Devolvemos JSON de ERROR
+            return $this->response->setJSON([
+                'status' => 'error',
+                'msg' => '¡Ups! Hay errores en el tablero. Revisá los números.'
+            ]);
         }
     }
 }
