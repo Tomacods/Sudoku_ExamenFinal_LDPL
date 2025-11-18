@@ -39,7 +39,7 @@ Clona el repositorio o descomprime la carpeta del proyecto dentro del directorio
 
 ```ini
 database.default.hostname = localhost
-database.default.database = test  <-- El nombre de DB
+database.default.database = sudoku_db  <-- El nombre de DB
 database.default.username = root
 database.default.password =       <-- Vacío en XAMPP por defecto
 database.default.DBDriver = MySQLi
