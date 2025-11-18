@@ -1,0 +1,30 @@
+/* --- Estilos Login / Registro Dark --- */
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #6a11cb;
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+}
+
+/* Ajuste para que el input se vea bien en fondo oscuro */
+.card-dark-custom input.form-control {
+    background-color: rgba(255, 255, 255, 0.1); /* Transparente */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.card-dark-custom input.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: white;
+    box-shadow: none;
+    color: white;
+}
+
+.card-dark-custom label {
+    color: rgba(255, 255, 255, 0.8);
+}

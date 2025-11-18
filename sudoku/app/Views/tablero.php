@@ -3,92 +3,149 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Sudoku 4x4 - Examen Final</title>
+    <title>Sudoku 4x4 - Jugando</title>
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('css/sudoku.css') ?>">
-
+    <link rel="stylesheet" href="<?= base_url('css/global.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/juego.css') ?>">
+    <script src="<?= base_url('js/sweetalert2.all.min.js') ?>"></script>
 </head>
 
-<body class="bg-light">
+<body class="dark-mode">
 
-    <div class="container mt-4">
-        <div class="row">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
 
-            <div class="col-md-8 text-center">
-                <h2>Sudoku 4x4</h2>
-                <p>Nivel: <strong class="text-uppercase"><?= $dificultad ?></strong></p>
+            <div class="col-md-7 text-center">
+                <div class="p-4 rounded shadow-lg" style="background-color: rgba(0,0,0,0.3);">
+                    <h2 class="text-white fw-bold">Sudoku 4x4</h2>
+                    <p class="text-white">Nivel: <strong class="text-uppercase text-warning"><?= $dificultad ?></strong></p>
 
-                <form action="<?= base_url('sudoku/validar') ?>" method="post" id="formSudoku">
-
-                    <div class="sudoku-container mt-4">
-                        <div class="sudoku-grid">
-                            <?php for ($i = 0; $i < 16; $i++):
-                                $valor = $tablero[$i];
-                                $esPista = !empty($valor);
-                            ?>
-                                <div class="cell">
-                                    <input type="text" name="c<?= $i ?>"
-                                        class="cell-input" maxlength="1" autocomplete="off"
-                                        value="<?= $valor ?>"
-                                        <?= $esPista ? 'readonly' : '' ?>>
-                                </div>
-                            <?php endfor; ?>
+                    <form id="formSudoku" action="<?= base_url('sudoku/validar') ?>" method="post">
+                        <div class="sudoku-container mt-4">
+                            <div class="sudoku-grid" style="border-color: #444;">
+                                <?php for ($i = 0; $i < 16; $i++):
+                                    $valor = $tablero[$i];
+                                    $esPista = !empty($valor);
+                                ?>
+                                    <div class="cell">
+                                        <input type="text" name="c<?= $i ?>"
+                                            class="cell-input" maxlength="1" autocomplete="off"
+                                            value="<?= $valor ?>"
+                                            <?= $esPista ? 'readonly' : '' ?>>
+                                    </div>
+                                <?php endfor; ?>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mt-4 mb-5">
-                        <button type="submit" class="btn btn-primary btn-lg shadow">Verificar Solución</button>
-                        <a href="<?= base_url('panel') ?>" class="btn btn-outline-secondary">Volver al Panel</a>
-                    </div>
-                </form>
+                        <div class="mt-4 mb-3">
+                            <button type="submit" class="btn btn-light btn-lg px-5 fw-bold text-primary shadow">
+                                ✅ Verificar Solución
+                            </button>
+                            <div class="mt-3">
+                                <a href="<?= base_url('panel') ?>" class="text-white text-decoration-none">
+                                    <small>⬅ Volver al Panel</small>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
 
             <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-success text-white">
-                        🏆 Mis Mejores Tiempos
+                <div class="card shadow-lg border-0" style="background-color: rgba(255,255,255,0.1);">
+
+                    <div class="card-header bg-transparent border-bottom border-light text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0" id="tituloRanking">🌍 Ranking Global</h5>
+
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="switchRanking">
+                                <label class="form-check-label small text-white" for="switchRanking">Ver Míos</label>
+                            </div>
+                        </div>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <?php if (empty($mejoresPartidas)): ?>
-                            <li class="list-group-item text-muted text-center p-4">
-                                Todavia no tenés victorias registradas. <br>
-                                ¡Ganá esta para aparecer acá!
+
+                    <ul class="list-group list-group-flush bg-transparent" id="listaGlobal">
+                        <?php if (empty($rankingGlobal)): ?>
+                            <li class="list-group-item list-group-item-dark-custom text-center p-4">
+                                <span class="opacity-75">Nadie ganó en este nivel.</span><br>
+                                <strong class="text-warning">¡Sé el primero!</strong>
                             </li>
                         <?php else: ?>
-                            <?php foreach ($mejoresPartidas as $index => $partida): ?>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <span class="fw-bold">#<?= $index + 1 ?></span>
-                                        <small class="text-muted ms-2"><?= date('d/m/Y', strtotime($partida['fecha'])) ?></small>
-                                        <br>
-                                        <span class="badge bg-secondary"><?= ucfirst($partida['nivel']) ?></span>
+                            <?php foreach ($rankingGlobal as $index => $puesto): ?>
+                                <li class="list-group-item list-group-item-dark-custom d-flex justify-content-between align-items-center">
+                                    <div class="text-truncate" style="max-width: 65%;">
+                                        <span class="fw-bold <?= $index == 0 ? 'text-warning' : 'text-white' ?>">#<?= $index + 1 ?></span>
+                                        <?php if ($puesto['usuario_id'] == session('id')): ?>
+                                            <strong class="text-info ms-1"><?= esc($puesto['nombre_jugador']) ?></strong>
+                                        <?php else: ?>
+                                            <span class="text-white ms-1"><?= esc($puesto['nombre_jugador']) ?></span>
+                                        <?php endif; ?>
+                                        <div style="font-size: 0.75rem;" class="text-light ms-4">
+                                            <?= date('d/m/Y', strtotime($puesto['fecha'])) ?>
+                                        </div>
                                     </div>
-                                    <span class="badge bg-primary rounded-pill fs-6">
-                                        <?= $partida['tiempo_segundos'] ?> seg
+                                    <span class="badge bg-warning text-dark rounded-pill">
+                                        ⏱ <?= $puesto['tiempo_segundos'] ?>s
                                     </span>
                                 </li>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
+
+                    <ul class="list-group list-group-flush bg-transparent d-none" id="listaPersonal">
+                        <?php if (empty($rankingPersonal)): ?>
+                            <li class="list-group-item list-group-item-dark-custom text-center p-4">
+                                <span class="opacity-75">Aún no tenés victorias aquí.</span><br>
+                                <small class="text-info">¡A jugar se ha dicho!</small>
+                            </li>
+                        <?php else: ?>
+                            <?php foreach ($rankingPersonal as $index => $puesto): ?>
+                                <li class="list-group-item list-group-item-dark-custom d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="fw-bold text-info">Top <?= $index + 1 ?></span>
+                                        <small class="text-white-50 ms-2"><?= date('d/m/Y', strtotime($puesto['fecha'])) ?></small>
+                                    </div>
+                                    <span class="badge bg-info text-dark rounded-pill">
+                                        ⏱ <?= $puesto['tiempo_segundos'] ?>s
+                                    </span>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </ul>
+
                 </div>
             </div>
 
         </div>
     </div>
 
-    <script src="<?= base_url('bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-
-    <script src="<?= base_url('js/sweetalert2.all.min.js') ?>"></script>
-
     <script>
-        // 1. Escuchamos el envío del formulario
-        document.getElementById('formSudoku').addEventListener('submit', function(e) {
-            e.preventDefault(); // ¡ALTO! Detenemos la recarga de página
+        // 1. LÓGICA DEL SWITCH DE RANKING
+        const switchRanking = document.getElementById('switchRanking');
+        const listaGlobal = document.getElementById('listaGlobal');
+        const listaPersonal = document.getElementById('listaPersonal');
+        const tituloRanking = document.getElementById('tituloRanking');
 
-            // 2. Preparamos los datos
+        switchRanking.addEventListener('change', function() {
+            if (this.checked) {
+                // Mostrar Personal
+                listaGlobal.classList.add('d-none');
+                listaPersonal.classList.remove('d-none');
+                tituloRanking.innerHTML = '👤 Mis Tiempos';
+            } else {
+                // Mostrar Global
+                listaPersonal.classList.add('d-none');
+                listaGlobal.classList.remove('d-none');
+                tituloRanking.innerHTML = '🌍 Ranking Global';
+            }
+        });
+
+        // 2. LÓGICA DEL FORMULARIO + SWEETALERT DARK
+        document.getElementById('formSudoku').addEventListener('submit', function(e) {
+            e.preventDefault();
             let formData = new FormData(this);
 
-            // 3. Enviamos por AJAX (Fetch)
             fetch("<?= base_url('sudoku/validar') ?>", {
                     method: "POST",
                     body: formData,
@@ -96,40 +153,52 @@
                         "X-Requested-With": "XMLHttpRequest"
                     }
                 })
-                .then(response => response.json()) // Convertimos la respuesta a JSON
+                .then(response => response.json())
                 .then(data => {
-
-                    // 4. Reaccionamos según el resultado
                     if (data.status === 'success') {
 
+                        // ALERTA DE VICTORIA (DARK & VIOLETA)
                         Swal.fire({
-                            title: '¡Excelente!',
+                            title: '¡VICTORIA!',
                             text: data.msg,
                             icon: 'success',
-                            confirmButtonText: 'Ir al Panel'
+                            background: '#1a1a2e', // Fondo oscuro azulado
+                            color: '#fff', // Texto blanco
+                            confirmButtonText: 'Volver al Panel',
+                            confirmButtonColor: '#6a11cb', // Botón Violeta
+                            backdrop: `rgba(0,0,0,0.8) url("<?= base_url('images/confetti.gif') ?>") left top no-repeat` // Opcional: fondo oscuro
                         }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = data.redirect; // Nos vamos al panel
-                            }
+                            if (result.isConfirmed) window.location.href = data.redirect;
                         });
 
                     } else {
 
+                        // ALERTA DE ERROR (DARK & ROJO)
                         Swal.fire({
                             title: 'Incorrecto',
                             text: data.msg,
                             icon: 'error',
-                            confirmButtonText: 'Seguir Intentando'
+                            background: '#1a1a2e',
+                            color: '#fff',
+                            confirmButtonText: 'Seguir Intentando',
+                            confirmButtonColor: '#e94560' // Botón Rojo Neón
                         });
-
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    Swal.fire('Error', 'Algo salió mal con el servidor', 'error');
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Fallo de conexión',
+                        icon: 'warning',
+                        background: '#1a1a2e',
+                        color: '#fff'
+                    });
                 });
         });
     </script>
+
+    <script src="<?= base_url('bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 </body>
 
 </html>

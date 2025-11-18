@@ -1,0 +1,68 @@
+/* --- Estilos para los Globos de Dificultad --- */
+
+.contenedor-globos {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Espacio entre globos */
+    margin-bottom: 30px;
+}
+
+/* El label actúa como el botón/globo */
+.globo-dificultad {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Lo hace redondo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Animación suave */
+    border: 4px solid transparent; /* Borde invisible por defecto */
+    background-color: #f8f9fa; /* Color base gris */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    text-align: center;
+    font-weight: bold;
+    color: #555;
+    position: relative;
+}
+
+/* Texto chiquito de las pistas */
+.globo-dificultad small {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    opacity: 0.7;
+}
+
+/* --- COLORES Y HOVER --- */
+
+/* FÁCIL (Verde) */
+.globo-dificultad.facil:hover, 
+.btn-check:checked + .globo-dificultad.facil {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #28a745;
+    transform: scale(1.1) translateY(-10px); /* Crece y flota */
+    box-shadow: 0 15px 25px rgba(40, 167, 69, 0.4); /* Sombra verde */
+}
+
+/* INTERMEDIO (Amarillo) */
+.globo-dificultad.medio:hover, 
+.btn-check:checked + .globo-dificultad.medio {
+    background-color: #fff3cd;
+    color: #856404;
+    border-color: #ffc107;
+    transform: scale(1.1) translateY(-10px);
+    box-shadow: 0 15px 25px rgba(255, 193, 7, 0.4);
+}
+
+/* DIFÍCIL (Rojo) */
+.globo-dificultad.dificil:hover, 
+.btn-check:checked + .globo-dificultad.dificil {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #dc3545;
+    transform: scale(1.1) translateY(-10px);
+    box-shadow: 0 15px 25px rgba(220, 53, 69, 0.4);
+}

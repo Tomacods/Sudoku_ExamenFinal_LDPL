@@ -10,22 +10,38 @@ class Sudoku extends BaseController
             return redirect()->to('panel');
         }
 
-        // Busco las 5 mejores partidas del usuario (Menor tiempo = Mejor)
+        $dificultadActual = session()->get('dificultad_actual');
+        $usuarioId = session()->get('id'); // Necesitamos tu ID para el ranking personal
         $db = \Config\Database::connect();
-        $usuarioId = session()->get('id');
 
-        $mejoresPartidas = $db->table('partidas')
-            ->where('usuario_id', $usuarioId)
-            ->where('resultado', 'victoria') // Solo las ganadas
-            ->orderBy('tiempo_segundos', 'ASC') // El más rápido primero
-            ->limit(5) // Solo las top 5
+        // 1. Ranking GLOBAL (Top 5 de todos)
+        $rankingGlobal = $db->table('partidas')
+            ->select('partidas.*, usuarios.usuario as nombre_jugador')
+            ->join('usuarios', 'usuarios.id = partidas.usuario_id')
+            ->where('partidas.nivel', $dificultadActual)
+            ->where('partidas.resultado', 'victoria')
+            ->orderBy('partidas.tiempo_segundos', 'ASC')
+            ->limit(5)
+            ->get()
+            ->getResultArray();
+
+        // 2. Ranking PERSONAL (Top 5 tuyos)
+        $rankingPersonal = $db->table('partidas')
+            ->select('partidas.*, usuarios.usuario as nombre_jugador')
+            ->join('usuarios', 'usuarios.id = partidas.usuario_id')
+            ->where('partidas.usuario_id', $usuarioId) // <-- FILTRO POR VOS
+            ->where('partidas.nivel', $dificultadActual)
+            ->where('partidas.resultado', 'victoria')
+            ->orderBy('partidas.tiempo_segundos', 'ASC')
+            ->limit(5)
             ->get()
             ->getResultArray();
 
         $data = [
             'tablero' => session()->get('tablero_juego'),
-            'dificultad' => session()->get('dificultad_actual'),
-            'mejoresPartidas' => $mejoresPartidas // mando esto a la vista
+            'dificultad' => $dificultadActual,
+            'rankingGlobal' => $rankingGlobal,    // Mandamos las dos listas
+            'rankingPersonal' => $rankingPersonal // Mandamos las dos listas
         ];
 
         return view('tablero', $data);

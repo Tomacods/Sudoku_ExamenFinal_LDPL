@@ -5,54 +5,64 @@
     <meta charset="UTF-8">
     <title>Iniciar Sesión - Sudoku</title>
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/auth.css') ?>">
 </head>
 
-<body class="bg-light">
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
+<body>
 
-                <?php if (session()->getFlashdata('mensaje')): ?>
-                    <div class="alert alert-success">
-                        <?= session()->getFlashdata('mensaje') ?>
-                    </div>
-                <?php endif; ?>
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-dark text-white card-dark-custom" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
 
-                <?php if (session()->getFlashdata('error')): ?>
-                    <div class="alert alert-danger">
-                        <?= session()->getFlashdata('error') ?>
-                    </div>
-                <?php endif; ?>
+                            <div class="mb-md-5 mt-md-4 pb-5">
 
-                <div class="card shadow">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h4>Iniciar Sesión</h4>
-                    </div>
-                    <div class="card-body">
-                        <form action="<?= base_url('login/autenticar') ?>" method="post">
+                                <h2 class="fw-bold mb-2 text-uppercase">Sudoku 4x4</h2>
+                                <p class="text-white-50 mb-5">¡Ingresá tu usuario y contraseña!</p>
 
-                            <div class="mb-3">
-                                <label>Usuario</label>
-                                <input type="text" name="usuario" class="form-control" required>
+                                <?php if (session()->getFlashdata('mensaje')): ?>
+                                    <div class="alert alert-success text-start text-dark">
+                                        <?= session()->getFlashdata('mensaje') ?>
+                                    </div>
+                                <?php endif; ?>
+
+                                <?php if (session()->getFlashdata('error')): ?>
+                                    <div class="alert alert-danger text-start text-dark">
+                                        <?= session()->getFlashdata('error') ?>
+                                    </div>
+                                <?php endif; ?>
+                                <form action="<?= base_url('login/autenticar') ?>" method="post">
+
+                                    <div class="form-outline form-white mb-4 text-start">
+                                        <label class="form-label" for="typeUsuario">Usuario</label>
+                                        <input type="text" name="usuario" id="typeUsuario" class="form-control form-control-lg" required />
+                                    </div>
+
+                                    <div class="form-outline form-white mb-4 text-start">
+                                        <label class="form-label" for="typePasswordX">Contraseña</label>
+                                        <input type="password" name="password" id="typePasswordX" class="form-control form-control-lg" required />
+                                    </div>
+
+                                    <button class="btn btn-outline-light btn-lg px-5 mt-3" type="submit">Entrar</button>
+
+                                </form>
+
                             </div>
 
-                            <div class="mb-3">
-                                <label>Contraseña</label>
-                                <input type="password" name="password" class="form-control" required>
+                            <div>
+                                <p class="mb-0">¿No tenés cuenta? <a href="<?= base_url('registro') ?>" class="text-white-50 fw-bold">Registrate acá</a>
+                                </p>
                             </div>
 
-                            <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-primary">Entrar</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="card-footer text-center">
-                        ¿No tenés cuenta? <a href="<?= base_url('registro') ?>">Registrate acá</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
     <script src="<?= base_url('bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 </body>
 
