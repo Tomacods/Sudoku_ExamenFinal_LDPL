@@ -20,7 +20,6 @@
                         <div class="mb-md-2 mt-md-2">
 
                             <h2 class="fw-bold mb-2 text-uppercase">Crear Cuenta</h2>
-                            <p class="text-white-50 mb-4">Unite al desafío del Sudoku 4x4</p>
 
                             <?php if (session()->has('errors')): ?>
                                 <div class="alert alert-danger text-start border-0 shadow-sm" style="background-color: #ffcccc; color: #990000;">
