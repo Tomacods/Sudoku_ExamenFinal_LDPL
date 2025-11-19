@@ -203,11 +203,19 @@ class Sudoku extends BaseController
                 'redirect' => base_url('panel')
             ]);
         } else {
-            // Guardamos derrota (opcional, si querés llenar la base)
-            // Devolvemos JSON de ERROR
+            // Guardamos la derrota en la DB
+            $tiempoSegundos = time() - $inicio;
+            $db = \Config\Database::connect();
+            $db->table('partidas')->insert([
+                'usuario_id'      => $usuarioId,
+                'nivel'           => $dificultad,
+                'tiempo_segundos' => $tiempoSegundos, // Opcional, podrías poner 0 si no te interesa el tiempo en derrotas
+                'fecha'           => date('Y-m-d H:i:s'),
+                'resultado'       => 'derrota'
+            ]);
             return $this->response->setJSON([
                 'status' => 'error',
-                'msg' => '¡Ups! Hay errores en el tablero. Revisá los números.'
+                'msg' => 'Has perdido esta partida'
             ]);
         }
     }

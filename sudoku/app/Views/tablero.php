@@ -205,12 +205,6 @@
                 .then(data => {
                     if (data.status === 'success') {
 
-
-                        /* Si ganamos, limpiamos el progreso guardado para esta dificultad
-                        // para no cargar un tablero resuelto la próxima vez.
-                        // localStorage.removeItem(`sudoku_progreso_<?= $dificultad ?>`);*/
-
-
                         clearInterval(intervalID);
 
 
@@ -229,9 +223,7 @@
 
                     } else {
 
-
                         clearInterval(intervalID);
-
 
                         Swal.fire({
                             title: 'Fin de la partida',
@@ -239,8 +231,12 @@
                             icon: 'error',
                             background: '#1a1a2e',
                             color: '#fff',
-                            confirmButtonText: 'Seguir Intentando',
-                            confirmButtonColor: '#e94560' // Botón Rojo Neón
+                            confirmButtonText: 'Volver a jugar',
+                            confirmButtonColor: '#e94560', // Botón Rojo Neón
+                            allowOutsideClick: false // Evita que se cierre al hacer clic fuera
+                        }).then((result) => {
+                            // Al confirmar, siempre volvemos al panel
+                            if (result.isConfirmed) window.location.href = '<?= base_url('panel') ?>';
                         });
                     }
                 })
@@ -267,36 +263,6 @@
                 this.value = this.value.replace(/[^1-4]/g, '');
             });
         });
-
-        /* // // 4. LÓGICA DE AUTOGUARDADO (LOCALSTORAGE)
-         // (function() {
-         //    const storageKey = `sudoku_progreso_<?= $dificultad ?>`;
-         //     const inputs = document.querySelectorAll('.cell-input');
-
-         //     // --- FUNCIÓN PARA CARGAR EL PROGRESO ---
-         //     function cargarProgreso() {
-         //         const progresoGuardado = localStorage.getItem(storageKey);
-         //         if (progresoGuardado) {
-         //             const valores = JSON.parse(progresoGuardado);
-         //             inputs.forEach((input, index) => {
-         //                 // Solo rellenamos las celdas que el usuario puede editar
-         //                 if (!input.readOnly) {
-         //                     input.value = valores[index] || '';
-         //                 }
-         //             });
-         //         }
-         //     }
-
-         //     // --- FUNCIÓN PARA GUARDAR EL PROGRESO ---
-         //     function guardarProgreso() {
-         //         const progresoActual = Array.from(inputs).map(input => input.value);
-         //         localStorage.setItem(storageKey, JSON.stringify(progresoActual));
-         //     }
-
-         //     // --- EVENTOS ---
-         //     document.addEventListener('DOMContentLoaded', cargarProgreso); // Cargar al iniciar
-         //     inputs.forEach(input => input.addEventListener('input', guardarProgreso)); // Guardar al escribir
-         // })();*/
     </script>
 
     <script src="<?= base_url('bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
