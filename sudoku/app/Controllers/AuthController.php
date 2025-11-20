@@ -6,17 +6,23 @@ use App\Models\UserModel;
 
 class AuthController extends BaseController
 {
-    public function registro()
+    /** Muestra la vista del formulario de registro de usuarios.*/
+    public function registro() // la funcion registro sirve para mostrar el formulario de registro
     {
         return view('auth/registro');
     }
 
+    /*Muestra la vista del formulario de inicio de sesión.*/
     public function login()
     {
         return view('auth/login');
     }
 
-
+    /**
+     * Procesa los datos del formulario de registro.
+     * Valida la información, hashea la contraseña y guarda el nuevo usuario en la base de datos.
+     * Redirige al login si el registro es exitoso, o de vuelta al formulario con errores si falla.
+     */
     public function guardarUsuario()
     {
         $userModel = new UserModel();
@@ -30,21 +36,27 @@ class AuthController extends BaseController
             'password' => $this->request->getPost('password')
         ];
 
-        // valido 
+        // valido los datos 
         if (!$userModel->validate($data)) {
             // Si falla la validación vuelvo para atras
-            return redirect()->back()->withInput()->with('errors', $userModel->errors());
+            return redirect()->back()->withInput()->with('errors', $userModel->errors()); 
+            //codeigniter usa el back con el withinput para mantener los datos en el formulario, seguido del with errors para mandar los errores a la vista
         }
 
         // si pasa el control guardo los datos
         $data['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
 
-        $userModel->insert($data);
+        $userModel->insert($data); // inserto los datos en la base de datos
 
         return redirect()->to('login')->with('mensaje', '¡Registro exitoso! Ahora iniciá sesión.');
     }
 
 
+    /**
+     * Procesa los datos del formulario de login para autenticar al usuario.
+     * Verifica el usuario y la contraseña. Si son correctos, crea una sesión
+     * y redirige al panel principal. Si no, redirige al login con un mensaje de error.
+     */
     public function autenticar()
     {
         $userModel = new UserModel();
@@ -65,12 +77,16 @@ class AuthController extends BaseController
                 return redirect()->to('panel');
             }
         }
-        return redirect()->to('login')->with('error', 'Usuario o contraseña incorrectos ❌');
+        return redirect()->to('login')->with('error', 'Usuario o contraseña incorrectos');
     }
 
+    /**
+     * Cierra la sesión del usuario.
+     * Destruye todos los datos de la sesión actual y redirige al formulario de login.
+     */
     public function logout()
     {
-        session()->destroy();
+        session()->destroy(); //el destroy es una funcion de codeigniter que destruye toda la sesion
         return redirect()->to('login');
     }
 }

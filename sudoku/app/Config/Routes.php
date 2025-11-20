@@ -16,13 +16,18 @@ $routes->get('/', function () {
 });
 
 
-$routes->get('/sudoku', 'Sudoku::index');
+$routes->get('/sudoku', 'Sudoku::index'); //este es el index del sudoku
+
 $routes->post('/sudoku/validar', 'Sudoku::validar');
+
 $routes->get('/registro', 'AuthController::registro');
+
 $routes->post('/registro/guardar', 'AuthController::guardarUsuario');
 $routes->get('/login', 'AuthController::login');
 
 $routes->post('/login/autenticar', 'AuthController::autenticar');
+
+
 $routes->get('/logout', 'AuthController::logout');
 
 // Ruta del panel usando el Controlador Nuevo

@@ -98,7 +98,7 @@
                         <?php if (empty($rankingPersonal)): ?>
                             <li class="list-group-item list-group-item-dark-custom text-center p-4">
                                 <span class="opacity-75">Aún no tenés victorias aquí.</span><br>
-                                <small class="text-info">¡A jugar se ha dicho!</small>
+                                <small class="text-info">¡A jugar!</small>
                             </li>
                         <?php else: ?>
                             <?php foreach ($rankingPersonal as $index => $puesto): ?>
@@ -205,6 +205,8 @@
                 .then(data => {
                     if (data.status === 'success') {
 
+                        actualizarRankings(data.rankingGlobal, data.rankingPersonal);
+
                         clearInterval(intervalID);
 
 
@@ -251,6 +253,80 @@
                     });
                 });
         });
+
+        // 4. FUNCIÓN PARA RENDERIZAR RANKINGS
+        function actualizarRankings(rankingGlobal, rankingPersonal) {
+            const listaGlobalEl = document.getElementById('listaGlobal');
+            const listaPersonalEl = document.getElementById('listaPersonal');
+            const userId = <?= session('id') ?>;
+
+            // Limpiamos las listas actuales
+            listaGlobalEl.innerHTML = '';
+            listaPersonalEl.innerHTML = '';
+
+            // --- Renderizar Ranking Global ---
+            if (rankingGlobal.length === 0) {
+                listaGlobalEl.innerHTML = `<li class="list-group-item list-group-item-dark-custom text-center p-4">
+                                                <span class="opacity-75">Nadie ganó en este nivel.</span><br>
+                                                <strong class="text-warning">¡Sé el primero!</strong>
+                                            </li>`;
+            } else {
+                rankingGlobal.forEach((puesto, index) => {
+                    const esUsuarioActual = puesto.usuario_id == userId;
+                    const item = `
+                        <li class="list-group-item list-group-item-dark-custom d-flex justify-content-between align-items-center">
+                            <div class="text-truncate" style="max-width: 65%;">
+                                <span class="fw-bold ${index == 0 ? 'text-warning' : 'text-white'}">#${index + 1}</span>
+                                ${esUsuarioActual ? 
+                                    `<strong class="text-info ms-1">${escapeHtml(puesto.nombre_jugador)}</strong>` : 
+                                    `<span class="text-white ms-1">${escapeHtml(puesto.nombre_jugador)}</span>`
+                                }
+                                <div style="font-size: 0.75rem;" class="text-light ms-4">
+                                    ${new Date(puesto.fecha).toLocaleDateString('es-ES')}
+                                </div>
+                            </div>
+                            <span class="badge bg-warning text-dark rounded-pill">
+                                ⏱ ${puesto.tiempo_segundos}s
+                            </span>
+                        </li>`;
+                    listaGlobalEl.innerHTML += item;
+                });
+            }
+
+            // --- Renderizar Ranking Personal ---
+            if (rankingPersonal.length === 0) {
+                listaPersonalEl.innerHTML = `<li class="list-group-item list-group-item-dark-custom text-center p-4">
+                                                <span class="opacity-75">Aún no tenés victorias aquí.</span><br>
+                                                <small class="text-info">¡A jugar!</small>
+                                            </li>`;
+            } else {
+                rankingPersonal.forEach((puesto, index) => {
+                    const nivelClase = puesto.nivel === 'facil' ? 'bg-success' : (puesto.nivel === 'medio' ? 'bg-warning text-dark' : 'bg-danger');
+                    const item = `
+                        <li class="list-group-item list-group-item-dark-custom d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <span class="fw-bold text-info me-3">#${index + 1}</span>
+                                <div>
+                                    <span class="badge ${nivelClase}">
+                                        ${puesto.nivel.charAt(0).toUpperCase() + puesto.nivel.slice(1)}
+                                    </span>
+                                    <small class="d-block text-white-50 mt-1">
+                                        ${new Date(puesto.fecha).toLocaleDateString('es-ES')}
+                                    </small>
+                                </div>
+                            </div>
+                            <span class="badge bg-info text-dark rounded-pill">
+                                ⏱&nbsp;${puesto.tiempo_segundos}s
+                            </span>
+                        </li>`;
+                    listaPersonalEl.innerHTML += item;
+                });
+            }
+        }
+
+        function escapeHtml(unsafe) {
+            return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
 
         // 3. LÓGICA DE VALIDACIÓN DE CELDAS EN TIEMPO REAL
         document.querySelectorAll('.cell-input').forEach(input => {
