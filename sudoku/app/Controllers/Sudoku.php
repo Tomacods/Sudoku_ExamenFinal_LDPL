@@ -101,36 +101,33 @@ class Sudoku extends BaseController
     /*Valida la solución enviada por el usuario. Esta función es llamada mediante una petición AJAX desde el frontend.*/
     public function validar()
     {
-        // Si no hay una solución guardada en la sesión, la partida ha expirado o es inválida.
+        helper('url'); 
+
         if (!session()->has('tablero_resuelto')) {
-            return $this->response->setJSON(['status' => 'error', 'msg' => 'La sesión expiró.']);       // es el método de CodeIgniter para devolver una respuesta en formato JSON.
+            return $this->response
+                        ->setContentType('application/json')
+                        ->setBody(json_encode(['status' => 'error', 'msg' => 'La sesión expiró.']));
         }
-        // Se recuperan los datos de la partida desde la sesión.
+
         $solucionReal = session()->get('tablero_resuelto');
         $usuarioId = session()->get('id');
         $dificultad = session()->get('dificultad_actual');
         $inicio = session()->get('hora_inicio');
 
         $esCorrecto = true;
-
-        // Se compara la solución del usuario (enviada por POST) con la solución real.
         for ($i = 0; $i < 16; $i++) {
-            // Los campos del formulario se llaman 'c0', 'c1', 'c2', etc.
-            $valorIngresado = $this->request->getPost('c' . $i);
-            if ($valorIngresado != $solucionReal[$i]) { // Si una sola celda es incorrecta, el tablero está mal.
+            if ($this->request->getPost('c' . $i) != $solucionReal[$i]) {
                 $esCorrecto = false;
                 break;
             }
         }
 
-        // Calcula tiempo
         $tiempoSegundos = time() - $inicio;
         $db = \Config\Database::connect();
 
-        if ($esCorrecto) { //caSO Dde victoria
-        
-            // Se inserta un nuevo registro en la tabla 'partidas' con el resultado.
-            $db->table('partidas')->insert([ //  Query Builder.
+        if ($esCorrecto) {
+            // 1. Guardar Victoria
+            $db->table('partidas')->insert([
                 'usuario_id'      => $usuarioId,
                 'nivel'           => $dificultad,
                 'tiempo_segundos' => $tiempoSegundos,
@@ -138,20 +135,43 @@ class Sudoku extends BaseController
                 'resultado'       => 'victoria'
             ]);
 
-            // Se limpia la sesión para que no se pueda volver a jugar la misma partida.
-            session()->remove(['tablero_juego', 'tablero_resuelto', 'dificultad_actual', 'hora_inicio']);  // puede tomar un array de claves a eliminar.
+            // 2. BUSCAR RANKINGS ACTUALIZADOS (Esto es lo que faltaba)
+            $rankingGlobal = $db->table('partidas')
+                ->select('partidas.*, usuarios.usuario as nombre_jugador')
+                ->join('usuarios', 'usuarios.id = partidas.usuario_id')
+                ->where('partidas.nivel', $dificultad)
+                ->where('partidas.resultado', 'victoria')
+                ->orderBy('partidas.tiempo_segundos', 'ASC')
+                ->limit(5)
+                ->get()->getResultArray();
 
-            // Se devuelve una respuesta JSON al frontend indicando el éxito.
-            return $this->response->setJSON([
-                'status'          => 'success',
-                'msg'             => "¡GANASTE! 🏆 Tiempo: $tiempoSegundos segundos.",
-                // `base_url()` es un helper de CodeIgniter que devuelve la URL base de la aplicación.
-                'redirect'        => base_url('panel')    //  usara la URL para redirigir al usuario.
-            ]);
+            $rankingPersonal = $db->table('partidas')
+                ->select('partidas.*, usuarios.usuario as nombre_jugador')
+                ->join('usuarios', 'usuarios.id = partidas.usuario_id')
+                ->where('partidas.usuario_id', $usuarioId)
+                ->where('partidas.resultado', 'victoria')
+                ->orderBy('partidas.tiempo_segundos', 'ASC')
+                ->limit(5)
+                ->get()->getResultArray();
+
+            session()->remove(['tablero_juego', 'tablero_resuelto']);
+
+            // 3. Enviar todo en el JSON
+            $respuesta = [
+                'status' => 'success',
+                'msg' => "¡GANASTE! 🏆 Tiempo: $tiempoSegundos segundos.",
+                'redirect' => base_url('panel'),
+                // Agregamos los datos para que JS no falle
+                'rankingGlobal' => $rankingGlobal,
+                'rankingPersonal' => $rankingPersonal
+            ];
+
+            return $this->response
+                        ->setContentType('application/json')
+                        ->setBody(json_encode($respuesta));
+
         } else {
-            // --- CASO DE DERROTA ---
-            // El juego es de "muerte súbita": si se valida con errores, se pierde.
-            // Se registra la derrota en la base de datos.
+            // DERROTA
             $db->table('partidas')->insert([
                 'usuario_id'      => $usuarioId,
                 'nivel'           => $dificultad,
@@ -160,14 +180,14 @@ class Sudoku extends BaseController
                 'resultado'       => 'derrota'
             ]);
 
-            // Se limpia la sesión para terminar la partida.
-            session()->remove(['tablero_juego', 'tablero_resuelto', 'dificultad_actual', 'hora_inicio']);
-
-            // Se devuelve una respuesta JSON indicando el error.
-            return $this->response->setJSON([
+            $respuesta = [
                 'status' => 'error',
                 'msg' => 'Has perdido esta partida. Había errores en el tablero.'
-            ]);
+            ];
+
+            return $this->response
+                        ->setContentType('application/json')
+                        ->setBody(json_encode($respuesta));
         }
     }
 
