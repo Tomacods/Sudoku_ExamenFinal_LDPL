@@ -214,9 +214,6 @@ class Sudoku extends BaseController
      * Lógica principal para crear un puzzle con una única solución.
      * Toma un tablero resuelto y elimina celdas una por una, asegurándose
      * de que el puzzle resultante siga teniendo una sola solución posible.
-     * @param array $tablero El tablero resuelto.
-     * @param int $pistasObjetivo El número de celdas que deben quedar visibles.
-     * @return array El tablero de juego con celdas en `null`.
      */
     private function ocultarCeldasInteligente($tablero, $pistasObjetivo)
     {
