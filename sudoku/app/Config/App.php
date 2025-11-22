@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public string $baseURL = 'http://localhost/trabajos/Sudoku_ExamenFinal_LDPL/sudoku/public/';
+    public string $baseURL = 'http://localhost/Sudoku_ExamenFinal_LDPL/sudoku/public/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
