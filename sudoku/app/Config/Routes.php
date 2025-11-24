@@ -18,17 +18,17 @@ $routes->get('/', function () {
 
 $routes->get('/sudoku', 'Sudoku::index'); //este es el index del sudoku
 
-$routes->post('/sudoku/validar', 'Sudoku::validar');
+$routes->post('/sudoku/validar', 'Sudoku::validar'); //esta ruta usa post porque envia datos
 
-$routes->get('/registro', 'AuthController::registro');
+$routes->get('/registro', 'AuthController::registro'); //esta ruta muestra el formulario de registro
 
-$routes->post('/registro/guardar', 'AuthController::guardarUsuario');
-$routes->get('/login', 'AuthController::login');
+$routes->post('/registro/guardar', 'AuthController::guardarUsuario'); //esta ruta procesa el formulario de registro
 
-$routes->post('/login/autenticar', 'AuthController::autenticar');
+$routes->get('/login', 'AuthController::login'); //esta ruta muestra el formulario de login
 
+$routes->post('/login/autenticar', 'AuthController::autenticar'); //esta ruta procesa el formulario de login
 
-$routes->get('/logout', 'AuthController::logout');
+$routes->get('/logout', 'AuthController::logout'); //esta ruta cierra la sesión del usuario
 
 // Ruta del panel usando el Controlador Nuevo
 $routes->get('panel', 'Panel::index');

@@ -32,7 +32,7 @@
                                 </div>
                             <?php endif; ?>
 
-                            <!-- Sección para mostrar mensajes de error (por ejemplo, credenciales incorrectas) -->
+                            <!-- Sección para mostrar mensajes de error  -->
                             <?php if (session()->getFlashdata('error')): ?>
                                 <div class="alert alert-danger text-start text-dark">
                                     <?= session()->getFlashdata('error') ?>

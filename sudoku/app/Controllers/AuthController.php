@@ -17,12 +17,9 @@ class AuthController extends BaseController
     {
         return view('auth/login');
     }
-
-    /**
-     * Procesa los datos del formulario de registro.
+    /**Procesa los datos del formulario de registro.
      * Valida la información, hashea la contraseña y guarda el nuevo usuario en la base de datos.
-     * Redirige al login si el registro es exitoso, o de vuelta al formulario con errores si falla.
-     */
+     * Redirige al login si el registro es exitoso, o de vuelta al formulario con errores si falla.*/
     public function guardarUsuario()
     {
         $userModel = new UserModel();
@@ -41,7 +38,7 @@ class AuthController extends BaseController
             // Si falla la validación vuelvo para atras
             return redirect()->back()->withInput()->with('errors', $userModel->errors()); 
             //codeigniter usa el back con el withinput para mantener los datos en el formulario, seguido del with errors para mandar los errores a la vista
-        }
+        } //para la presentacion: mostrar los errores en la vista y como cambia los mensajes predeterminamos con los personalizados del modelo
 
         // si pasa el control guardo los datos
         $data['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);

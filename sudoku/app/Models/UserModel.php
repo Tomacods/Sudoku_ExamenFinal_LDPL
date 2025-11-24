@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models; //https://codeigniter.com/user_guide/models/model.html#models
+//de acá sacaque la config para poder hacer el modelo y la validación
 
 use CodeIgniter\Model;
 
-/**
- * Class UserModel
- * Este modelo se encarga de la gestión de los datos de la tabla 'usuarios'.
- * Proporciona métodos para interactuar con la base de datos para operaciones CRUD (Crear, Leer, Actualizar, Borrar)
- * sobre los usuarios, además de manejar la validación de los datos antes de la inserción o actualización.
+/** Este modelo se encarga de la gestión de los datos de la tabla 'usuarios'.
+ * Proporciona métodos para interactuar con la base de datos para operaciones CRUD
+ * sobre los usuarios, además de manejar la validación de los datos antes de la inserción actualización.
  */
 class UserModel extends Model
 {
@@ -34,8 +33,7 @@ class UserModel extends Model
         'password' => 'required|min_length[4]'
     ];
 
-    /**
-     * Define mensajes de error personalizados para las reglas de validación.
+    /** Define mensajes de error personalizados para las reglas de validación.
      * Esto permite mostrar mensajes más amigables al usuario en caso de queuna regla de validación falle.*/
     protected $validationMessages = [
         'email' => [
