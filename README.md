@@ -56,19 +56,21 @@ Por seguridad, las credenciales no se suben al repositorio.
 2. Hacé una copia y renombrala a **`.env`** (con punto al inicio).
 3. Abrilo y configurá tu base de datos (verificá el puerto de tu XAMPP):
 
-    # En archivo .env
-    CI_ENVIRONMENT = development
+```ini
+# En archivo .env
+CI_ENVIRONMENT = development
 
-    database.default.hostname = localhost
-    database.default.database = sudoku_db
-    database.default.username = root
-    database.default.password = 
-    database.default.port = 3306  # Cambiar a 3007 si es necesario
+database.default.hostname = localhost
+database.default.database = sudoku_db
+database.default.username = root
+database.default.password = 
+database.default.port = 3306  # Cambiar a 3007 si tu XAMPP usa ese puerto
+```
 
 ### 4. Base de Datos
-1. Abrí phpMyAdmin.
+1. Abrí phpMyAdmin (`http://localhost/phpmyadmin`).
 2. Creá una base de datos llamada **`sudoku_db`**.
-3. Importá el archivo SQL provisto en la carpeta `database/` (o ejecutá las migraciones).
+3. Importá el archivo SQL provisto en la carpeta `database/` del proyecto.
 
 ### 5. Ejecutar (Vía XAMPP)
 1. Abrí el **Panel de Control de XAMPP**.
@@ -98,6 +100,4 @@ El proyecto respeta estrictamente el patrón Modelo-Vista-Controlador:
 
 ### Tablero de Juego (4x4)
 <img src="screenshots/tablero.png" alt="Jugando al Sudoku" width="600">
----
 
-Hecho con 💻 y ☕ para el Final de Laboratorio.
