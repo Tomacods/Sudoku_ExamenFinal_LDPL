@@ -95,9 +95,11 @@ El proyecto respeta estrictamente el patrón Modelo-Vista-Controlador:
 
 ## Capturas
 
-### Login y Registro
-<img src="screenshots/login.png" alt="Pantalla de Login" width="600">
+### Login y Panel Principal
+<img src="screenshots/Login.png" alt="Pantalla de Login" width="45%"> <img src="screenshots/Panel.png" alt="Panel Principal" width="45%">
 
-### Tablero de Juego (4x4)
-<img src="screenshots/tablero.png" alt="Jugando al Sudoku" width="600">
+### Gameplay (Niveles)
+<img src="screenshots/Sudoku%20Facil%20.png" alt="Nivel Fácil" width="45%"> <img src="screenshots/Sudoku%20Dificil.png" alt="Nivel Difícil" width="45%">
 
+### Victoria
+<img src="screenshots/Victoria.png" alt="Partida Ganada" width="600">
