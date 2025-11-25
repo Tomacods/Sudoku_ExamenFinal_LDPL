@@ -93,8 +93,11 @@ El proyecto respeta estrictamente el patrón Modelo-Vista-Controlador:
 
 ## Capturas
 
-*(Espacio reservado para screenshots del Login, Tablero y Modo Oscuro)*
+### Login y Registro
+<img src="screenshots/login.png" alt="Pantalla de Login" width="600">
 
+### Tablero de Juego (4x4)
+<img src="screenshots/tablero.png" alt="Jugando al Sudoku" width="600">
 ---
 
 Hecho con 💻 y ☕ para el Final de Laboratorio.
