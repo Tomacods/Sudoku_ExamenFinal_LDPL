@@ -56,19 +56,21 @@ Por seguridad, las credenciales no se suben al repositorio.
 2. Hacé una copia y renombrala a **`.env`** (con punto al inicio).
 3. Abrilo y configurá tu base de datos (verificá el puerto de tu XAMPP):
 
-    # En archivo .env
-    CI_ENVIRONMENT = development
+```ini
+# En archivo .env
+CI_ENVIRONMENT = development
 
-    database.default.hostname = localhost
-    database.default.database = sudoku_db
-    database.default.username = root
-    database.default.password = 
-    database.default.port = 3306  # Cambiar a 3007 si es necesario
+database.default.hostname = localhost
+database.default.database = sudoku_db
+database.default.username = root
+database.default.password = 
+database.default.port = 3306  # Cambiar a 3007 si tu XAMPP usa ese puerto
+```
 
 ### 4. Base de Datos
-1. Abrí phpMyAdmin.
+1. Abrí phpMyAdmin (`http://localhost/phpmyadmin`).
 2. Creá una base de datos llamada **`sudoku_db`**.
-3. Importá el archivo SQL provisto en la carpeta `database/` (o ejecutá las migraciones).
+3. Importá el archivo SQL provisto en la carpeta `database/` del proyecto.
 
 ### 5. Ejecutar (Vía XAMPP)
 1. Abrí el **Panel de Control de XAMPP**.
@@ -93,8 +95,11 @@ El proyecto respeta estrictamente el patrón Modelo-Vista-Controlador:
 
 ## Capturas
 
-*(Espacio reservado para screenshots del Login, Tablero y Modo Oscuro)*
+### Login y Panel Principal
+<img src="screenshots/Login.png" alt="Pantalla de Login" width="45%"> <img src="screenshots/Panel.png" alt="Panel Principal" width="45%">
 
----
+### Gameplay (Niveles)
+<img src="screenshots/Sudoku%20Facil%20.png" alt="Nivel Fácil" width="45%"> <img src="screenshots/Sudoku%20Dificil.png" alt="Nivel Difícil" width="45%">
 
-Hecho con 💻 y ☕ para el Final de Laboratorio.
+### Victoria
+<img src="screenshots/Victoria.png" alt="Partida Ganada" width="600">
