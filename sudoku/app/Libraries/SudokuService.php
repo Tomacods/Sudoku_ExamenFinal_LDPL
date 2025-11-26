@@ -17,7 +17,7 @@ class SudokuService
     public function generarPuzzle(int $pistasObjetivo): array
     {
         $intentos = 0;
-        $maxIntentos = 200;// Límite de seguridad para evitar un bucle infinito si la generación falla.
+        $maxIntentos = 100;// Límite de seguridad para evitar un bucle infinito si la generación falla.
 
           // el bucle intenta generar un tablero que cumpla exactamente con el número de pistas.
         // A veces, al quitar una celda, el tablero resultante tiene más pistas de las deseadas en ese caso, se descarta y se genera uno nuevo.
@@ -35,8 +35,7 @@ class SudokuService
     }
 
     /**
-     * Genera un tablero de Sudoku 4x4 completamente resuelto y válido.
-     */
+     * Genera un tablero de Sudoku 4x4 completamente resuelto y válido.*/
     private function generarTableroValido(): array
     {
         $base = [1, 2, 3, 4, 3, 4, 1, 2, 2, 1, 4, 3, 4, 3, 2, 1]; // Solución válida base

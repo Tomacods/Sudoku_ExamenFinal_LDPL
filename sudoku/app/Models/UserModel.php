@@ -19,7 +19,6 @@ class UserModel extends Model
     protected $allowedFields    = ['nombre', 'apellido', 'email', 'usuario', 'password']; /*** Un array con los nombres de los campos de la tabla que se pueden
      *insertar o actualizar de forma masiva. Es una medida de seguridad para evitar que se modifiquen columnas no deseadas.*/
 
-   
     protected $useTimestamps    = false;  /**Si es `true`, el modelo gestionará automáticamente las columnas
      *           `created_at` y `updated_at`. En este caso, está desactivado. */
 
