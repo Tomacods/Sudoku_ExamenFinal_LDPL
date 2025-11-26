@@ -44,7 +44,7 @@ Sigue estos pasos detallados para configurar el entorno correctamente.
 1.  Abrí el panel de XAMPP.
 2.  En Apache, clic en `Config` > `PHP (php.ini)`.
 3.  Buscá la línea `;extension=intl`.
-4.  Borrá el punto y coma (`;`) inicial para descomentarla. [cite_start]Debe quedar: `extension=intl`.
+4.  Borrá el punto y coma (`;`) inicial para descomentarla. Debe quedar: `extension=intl`.
 5.  Guardá y reiniciá Apache.
 
 **Configuración del Puerto MySQL (Si usas el puerto 3007):**
