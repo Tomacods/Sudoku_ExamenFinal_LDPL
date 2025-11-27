@@ -5,6 +5,7 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+
 //  la raíz que  lleva directo al login
 $routes->get('/', function () {
     // Si existe la sesión 'logueado', va al panel directo
@@ -35,3 +36,8 @@ $routes->get('panel', 'Panel::index');
 
 // Ruta para crear el juego 
 $routes->post('sudoku/crear', 'Sudoku::crearPartida');
+
+
+//metodos get usados unicamente para lectura
+
+//metodos post usado para acciones que cambian el estado del servidor, y para enviar datos sensibles 
