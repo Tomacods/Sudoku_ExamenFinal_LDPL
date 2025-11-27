@@ -90,7 +90,7 @@ class Sudoku extends BaseController
     }
 
     /*Valida la solución enviada por el usuario. Esta función es llamada mediante una petición AJAX desde el frontend.*/
-    public function validar()
+    public function validar()//determina si el jugador ganó o perdio
     {
         helper('url'); 
 
@@ -152,7 +152,7 @@ class Sudoku extends BaseController
                 'status' => 'success',
                 'msg' => "¡GANASTE! 🏆 Tiempo: $tiempoSegundos segundos.",
                 'redirect' => base_url('panel'),
-                // Agregamos los datos para que JS no falle
+                // agrego estos datos para que el json no falle
                 'rankingGlobal' => $rankingGlobal,
                 'rankingPersonal' => $rankingPersonal
             ];
