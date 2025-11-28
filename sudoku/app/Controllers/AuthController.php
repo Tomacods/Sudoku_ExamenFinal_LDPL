@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+//esta clase es la que se encarga de la autenticacion de los usuarios. Su respoonsab
 
 class AuthController extends BaseController
 {
@@ -60,7 +61,7 @@ class AuthController extends BaseController
         $usuario = $this->request->getPost('usuario');
         $password = $this->request->getPost('password');
 
-        $datosUsuario = $userModel->where('usuario', $usuario)->first();
+        $datosUsuario = $userModel->where('usuario', $usuario)->first(); //busco el usuario en la base de datos
 
         if ($datosUsuario) {
             if (password_verify($password, $datosUsuario['password'])) {

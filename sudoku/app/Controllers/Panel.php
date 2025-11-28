@@ -17,7 +17,7 @@ class Panel extends BaseController
             return redirect()->to('login');// Envía al usuario a la ruta 'login' definida en `app/Config/Routes.php`
         }
 
-        // 2 CONEXIÓN A LA BASE DE DATOS:
+        // CONEXIÓN A LA BASE DE DATOS:
         // de conexión a la base de datos por defecto, configurada en `app/Config/Database.php`
         $db = \Config\Database::connect();   // es la forma estándar en CodeIgniter 4 de obtener la instancia
 
