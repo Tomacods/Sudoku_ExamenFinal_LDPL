@@ -27,7 +27,7 @@ class AuthController extends BaseController
 
         // agarro los datos del formulario
         $data = [
-            'nombre'   => $this->request->getPost('nombre'),
+            'nombre'   => $this->request->getPost('nombre'), //codeIgniter uesa el getPost para obtener los datos del formulario evitando asi inyecciones sql
             'apellido' => $this->request->getPost('apellido'),
             'email'    => $this->request->getPost('email'),
             'usuario'  => $this->request->getPost('usuario'),
@@ -63,7 +63,7 @@ class AuthController extends BaseController
 
         $datosUsuario = $userModel->where('usuario', $usuario)->first(); //busco el usuario en la base de datos
 
-        if ($datosUsuario) {
+        if ($datosUsuario) { //si encuentra el usuario
             if (password_verify($password, $datosUsuario['password'])) {
                 $sessionData = [
                     'id'       => $datosUsuario['id'],
@@ -71,7 +71,7 @@ class AuthController extends BaseController
                     'usuario'  => $datosUsuario['usuario'],
                     'logueado' => true
                 ];
-                session()->set($sessionData);
+                session()->set($sessionData); 
                 return redirect()->to('panel');
             }
         }

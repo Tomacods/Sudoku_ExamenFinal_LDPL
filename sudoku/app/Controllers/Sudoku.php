@@ -106,7 +106,7 @@ class Sudoku extends BaseController
         $inicio = session()->get('hora_inicio');
 
         $esCorrecto = true;
-        for ($i = 0; $i < 16; $i++) {
+        for ($i = 0; $i < 16; $i++) { //este for recorre el tablero 
             if ($this->request->getPost('c' . $i) != $solucionReal[$i]) {
                 $esCorrecto = false;
                 break;

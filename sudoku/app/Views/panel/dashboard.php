@@ -18,7 +18,7 @@
                 <span class="navbar-text text-white me-3">
                     Hola, <strong><?= esc($nombre) ?></strong>
                 </span>
-                <a href="<?= base_url('logout') ?>" class="btn btn-sm btn-outline-light">Salir</a>
+                <a href="<?= base_url('logout') ?>" class="btn btn-sm btn-outline-light">Salir</a> 
             </div>
         </div>
     </nav>

@@ -24,7 +24,7 @@ class SudokuService
         do {
             $tableroResuelto = $this->generarTableroValido(); //genera un tablero resuelto completo
             $tableroJuego = $this->ocultarCeldasInteligente($tableroResuelto, $pistasObjetivo); //oculta celdas para crear el juego
-            $pistasReales = count(array_filter($tableroJuego));
+            $pistasReales = count(array_filter($tableroJuego)); //cuenta las celdas visibles
             $intentos++;
         } while ($pistasReales > $pistasObjetivo && $intentos < $maxIntentos); // revisa que no se exceda el número de pistas objetivo
 
@@ -46,9 +46,9 @@ class SudokuService
     {
         $map = [1, 2, 3, 4];
         shuffle($map);
-        $nuevoTablero = [];
-        foreach ($tablero as $val) {
-            $nuevoTablero[] = $map[$val - 1];
+        $nuevoTablero = []; // crea un nuevo tablero
+        foreach ($tablero as $val) { // mezcla los números del tablero 
+            $nuevoTablero[] = $map[$val - 1]; // asigna los números del tablero a la nueva posición
         }
         return $nuevoTablero;
     }

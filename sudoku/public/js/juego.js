@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnVerificar = document.getElementById('btnVerificar');
     const divVolverPanel = document.getElementById('divVolverPanel');
 
-    // --- 0. LÓGICA DEL TEMPORIZADOR ---
+    // --- LÓGICA DEL TEMPORIZADOR --- https://stackoverflow.com/questions/41896116/javascript-math-floor-time-calculcation
+
     function actualizarTimer() {
         const ahora = Math.floor(Date.now() / 1000); // Timestamp JS en segundos
         const segundosTranscurridos = ahora - config.horaInicio;
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
     actualizarTimer();
     const intervalID = setInterval(actualizarTimer, 1000);
 
-    // --- 1. LÓGICA DEL SWITCH DE RANKING ---
+    // --- LÓGICA DEL SWITCH DE RANKING ---
     if (switchRanking) {
         switchRanking.addEventListener('change', function () {
             if (this.checked) {
@@ -60,13 +61,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- 2. LÓGICA DEL FORMULARIO + SWEETALERT ---
+    // --- LÓGICA DEL FORMULARIO + SWEETALERT ---
     if (formSudoku) {
         formSudoku.addEventListener('submit', function (e) {
             e.preventDefault();
             let formData = new FormData(this);
 
-            // Cambiamos el botón inmediatamente
+            // Cambia el botón inmediatamente
             btnVerificar.type = 'button'; // Para que no vuelva a enviar el form
             btnVerificar.innerHTML = '🔄 Volver a Jugar';
             btnVerificar.classList.remove('btn-light', 'text-primary');
@@ -75,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.location.href = config.urlPanel;
             };
 
-            // Ocultamos el enlace redundante
+            // oculta el enlace redundante
             if (divVolverPanel) divVolverPanel.style.display = 'none';
 
             fetch(config.urlValidar, {
@@ -129,14 +130,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- 3. LÓGICA DE VALIDACIÓN DE CELDAS ---
+    // --- LÓGICA DE VALIDACIÓN DE CELDAS ---
     document.querySelectorAll('.cell-input').forEach(input => {
         input.addEventListener('input', function () {
             this.value = this.value.replace(/[^1-4]/g, '');
         });
     });
 
-    // --- 4. FUNCIÓN PARA RENDERIZAR RANKINGS ---
+    // --- FUNCIÓN PARA RENDERIZAR RANKINGS ---
     function actualizarRankings(rankingGlobal, rankingPersonal) {
         const listaGlobalEl = document.getElementById('listaGlobal');
         const listaPersonalEl = document.getElementById('listaPersonal');
@@ -184,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     }
-
+// https://stackoverflow.com/questions/6234773/can-i-escape-html-special-chars-in-javascript
     function escapeHtml(unsafe) {
         return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
