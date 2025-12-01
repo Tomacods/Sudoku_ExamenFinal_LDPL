@@ -5,7 +5,7 @@
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=flat-square&logo=bootstrap&logoColor=white)
 ![Estado](https://img.shields.io/badge/Estado-Finalizado-success?style=flat-square)
 
-> **Alumno:** Da silva Tomás (Tomaco)
+> **Alumno:** Da silva Tomás
 > **Materia:** Laboratorio de Programación y Lenguajes
 > **Año:** 2025
 
