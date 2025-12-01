@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         horaInicio: parseInt(gameContainer.dataset.horaInicio, 10),
         urlValidar: gameContainer.dataset.urlValidar,
         urlPanel: gameContainer.dataset.urlPanel,
-        urlConfetti: gameContainer.dataset.urlConfetti,
+
         userId: parseInt(gameContainer.dataset.userId, 10)
     };
 
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         color: '#fff',
                         confirmButtonText: 'Volver al Panel',
                         confirmButtonColor: '#6a11cb',
-                        backdrop: `rgba(0,0,0,0.8) url("${config.urlConfetti}") left top no-repeat`
+
                     }).then((result) => {
                         if (result.isConfirmed) window.location.href = data.redirect;
                     });
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
             rankingGlobal.forEach((puesto, index) => {
                 const esUsuarioActual = puesto.usuario_id == config.userId;
                 const item = `
-                    <li class="list-group-item list-group-item-dark-custom d-flex justify-content-between align-items-center">
+                    <li class="list-group-item list-group-item-dark-custom d-flex justify-content-between align-items-center"> 
                         <div class="text-truncate" style="max-width: 65%;">
                             <span class="fw-bold ${index == 0 ? 'text-warning' : 'text-white'}">#${index + 1}</span>
                             ${esUsuarioActual ? `<strong class="text-info ms-1">${escapeHtml(puesto.nombre_jugador)}</strong>` : `<span class="text-white ms-1">${escapeHtml(puesto.nombre_jugador)}</span>`}

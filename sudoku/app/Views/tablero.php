@@ -16,7 +16,6 @@
         data-hora-inicio="<?= $hora_inicio ?>"
         data-url-validar="<?= base_url('sudoku/validar') ?>"
         data-url-panel="<?= base_url('panel') ?>"
-        data-url-confetti="<?= base_url('images/confetti.gif') ?>"
         data-user-id="<?= session('id') ?>"
     >
         <div class="row justify-content-center">
