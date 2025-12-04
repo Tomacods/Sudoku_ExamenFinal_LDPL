@@ -62,16 +62,16 @@
 
                     <div class="card-header bg-transparent border-bottom border-light text-white">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0" id="tituloRanking">🌍 Ranking Global</h5>
+                            <h5 class="mb-0" id="tituloRanking">👤 Mis Tiempos</h5>
 
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="switchRanking">
+                                <input class="form-check-input" type="checkbox" role="switch" id="switchRanking" checked>
                                 <label class="form-check-label small text-white" for="switchRanking">Ver Míos</label>
                             </div>
                         </div>
                     </div>
 
-                    <ul class="list-group list-group-flush bg-transparent" id="listaGlobal">
+                    <ul class="list-group list-group-flush bg-transparent d-none" id="listaGlobal">
                         <?php if (empty($rankingGlobal)): ?>
                             <li class="list-group-item list-group-item-dark-custom text-center p-4">
                                 <span class="opacity-75">Nadie ganó en este nivel.</span><br>
@@ -99,7 +99,7 @@
                         <?php endif; ?>
                     </ul>
 
-                    <ul class="list-group list-group-flush bg-transparent d-none" id="listaPersonal">
+                    <ul class="list-group list-group-flush bg-transparent" id="listaPersonal">
                         <?php if (empty($rankingPersonal)): ?>
                             <li class="list-group-item list-group-item-dark-custom text-center p-4">
                                 <span class="opacity-75">Aún no tenés victorias aquí.</span><br>

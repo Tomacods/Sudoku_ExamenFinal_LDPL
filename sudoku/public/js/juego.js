@@ -86,19 +86,42 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(response => response.json())
             .then(data => {
-                clearInterval(intervalID); // Detener el timer en cualquier caso
+                clearInterval(intervalID); 
 
                 if (data.status === 'success') {
                     actualizarRankings(data.rankingGlobal, data.rankingPersonal);
+
+                    let rankingHtml = '<div class="mt-3"><h5 class="text-warning mb-3">🏆 Top Jugadores</h5><ul class="list-group list-group-flush text-start" style="font-size: 0.9rem;">';
+                    
+                    if (data.rankingGlobal && data.rankingGlobal.length > 0) {
+                        data.rankingGlobal.slice(0, 5).forEach((puesto, index) => {
+                             const esUsuarioActual = puesto.usuario_id == config.userId;
+                             const color = index === 0 ? 'text-warning' : 'text-white';
+                             const bg = esUsuarioActual ? 'background-color: rgba(255, 255, 255, 0.1);' : '';
+                             
+                             rankingHtml += `
+                                <li class="list-group-item bg-transparent border-secondary d-flex justify-content-between align-items-center py-2" style="${bg}">
+                                    <div>
+                                        <span class="fw-bold ${color} me-2">#${index + 1}</span>
+                                        <span class="${esUsuarioActual ? 'text-info fw-bold' : 'text-light'}">${escapeHtml(puesto.nombre_jugador)}</span>
+                                    </div>
+                                    <span class="badge bg-dark text-light border border-secondary">⏱ ${puesto.tiempo_segundos}s</span>
+                                </li>`;
+                        });
+                    } else {
+                        rankingHtml += '<li class="list-group-item bg-transparent text-white-50 text-center">Sin datos aún</li>';
+                    }
+                    rankingHtml += '</ul></div>';
+
                     Swal.fire({
                         title: '¡VICTORIA!',
-                        text: data.msg,
+                        html: `<h4 class="text-white mb-4">${data.msg}</h4>${rankingHtml}`,
                         icon: 'success',
                         background: '#1a1a2e',
                         color: '#fff',
                         confirmButtonText: 'Volver al Panel',
                         confirmButtonColor: '#6a11cb',
-
+                        width: '400px'
                     }).then((result) => {
                         if (result.isConfirmed) window.location.href = data.redirect;
                     });
