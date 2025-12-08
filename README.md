@@ -47,10 +47,10 @@ Sigue estos pasos detallados para configurar el entorno correctamente.
 4.  Borrá el punto y coma (`;`) inicial para descomentarla. Debe quedar: `extension=intl`.
 5.  Guardá y reiniciá Apache.
 
-**Configuración del Puerto MySQL (Si usas el puerto 3007):**
-*Si tu instalación usa el puerto estándar 3306, omití esto. Si seguiste la configuración del laboratorio (3007):*
-1.  En XAMPP > MySQL > `Config` > `my.ini`. Cambiá `port=3306` por `port=3007`.
-2.  En `C:\xampp\phpMyAdmin\config.inc.php`, agregá la línea: `$cfg['Servers'][$i]['port'] = '3007';`.
+**Configuración del Puerto MySQL (Si usas el puerto 3307):**
+*Si tu instalación usa el puerto estándar 3306, omití esto. Si seguiste la configuración del laboratorio (3307):*
+1.  En XAMPP > MySQL > `Config` > `my.ini`. Cambiá `port=3306` por `port=3307`.
+2.  En `C:\xampp\phpMyAdmin\config.inc.php`, agregá la línea: `$cfg['Servers'][$i]['port'] = '3307';`.
 
 ### 2. Instalación del Proyecto
 
@@ -81,7 +81,7 @@ database.default.database = sudoku_db
 database.default.username = root
 database.default.password = 
 database.default.DBDriver = MySQLi
-database.default.port = 3007  # O 3306 según tu XAMPP
+database.default.port = 3307  # O 3306 según tu XAMPP
 ```
 
 ### 3. Ejecutar (Vía XAMPP)
