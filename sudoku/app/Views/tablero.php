@@ -12,7 +12,7 @@
 
 <body class="dark-mode">
 
-    <div id="gameContainer" class="container mt-5" 
+    <main id="gameContainer" class="container mt-5" 
         data-hora-inicio="<?= $hora_inicio ?>"
         data-url-validar="<?= base_url('sudoku/validar') ?>"
         data-url-panel="<?= base_url('panel') ?>"
@@ -21,10 +21,12 @@
         <div class="row justify-content-center">
 
             <div class="col-md-7 text-center">
-                <div class="p-4 rounded shadow-lg" style="background-color: rgba(0,0,0,0.3);">
-                    <h2 class="text-white fw-bold">Sudoku 4x4</h2>
-                    <p class="text-white">Nivel: <strong class="text-uppercase text-warning"><?= $dificultad ?></strong></p>
-                    <p class="text-white mb-0">Tiempo: <span id="timer" class="fw-bold text-warning">00:00</span></p>
+                <section aria-label="Sudoku Game Board" class="p-4 rounded shadow-lg" style="background-color: rgba(0,0,0,0.3);">
+                    <header>
+                        <h2 class="text-white fw-bold">Sudoku 4x4</h2>
+                        <p class="text-white">Nivel: <strong class="text-uppercase text-warning"><?= $dificultad ?></strong></p>
+                        <p class="text-white mb-0">Tiempo: <span id="timer" class="fw-bold text-warning">00:00</span></p>
+                    </header>
 
                     <form id="formSudoku" action="<?= base_url('sudoku/validar') ?>" method="post">
                         <div class="sudoku-container mt-4">
@@ -54,13 +56,13 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </section>
             </div>
 
-            <div class="col-md-4">
+            <aside class="col-md-4">
                 <div class="card shadow-lg border-0" style="background-color: rgba(255,255,255,0.1);">
 
-                    <div class="card-header bg-transparent border-bottom border-light text-white">
+                    <header class="card-header bg-transparent border-bottom border-light text-white">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="mb-0" id="tituloRanking">👤 Mis Tiempos</h5>
 
@@ -69,7 +71,7 @@
                                 <label class="form-check-label small text-white" for="switchRanking">Ver Míos</label>
                             </div>
                         </div>
-                    </div>
+                    </header>
 
                     <ul class="list-group list-group-flush bg-transparent d-none" id="listaGlobal">
                         <?php if (empty($rankingGlobal)): ?>
@@ -131,10 +133,22 @@
                     </ul>
 
                 </div>
-            </div>
+            </aside>
 
         </div>
-    </div>
+    </main>
+
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="text-white-50 fs-6">&copy; 2025 SudokuGame</span>
+                <a href="https://github.com/Tomacods/Sudoku_ExamenFinal_LDPL" target="_blank" class="text-white opacity-75 text-decoration-none d-flex align-items-center gap-2">
+                    <img src="<?= base_url('images/github.svg') ?>" alt="GitHub" width="20" height="20">
+                    <span>Tomacods</span>
+                </a>
+            </div>
+        </div>
+    </footer>
 
     <script src="<?= base_url('bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
     <script src="<?= base_url('js/juego.js') ?>"></script>

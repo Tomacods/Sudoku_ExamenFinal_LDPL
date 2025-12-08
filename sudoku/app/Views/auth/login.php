@@ -11,17 +11,19 @@
 </head>
 
 <body class="dark-mode"> 
-    <div class="container py-5 h-100"> <!-- Contenedor principal de Bootstrap para centrar el contenido -->
+    <main class="container py-5 h-100"> <!-- Contenedor principal de Bootstrap para centrar el contenido -->
         <div class="row d-flex justify-content-center align-items-center h-100"> 
             <div class="col-12 col-md-8 col-lg-6 col-xl-5"> <!-- Columna responsiva que define el ancho del formulario en diferentes tamaños de pantalla -->
                 
-                <div class="card card-dark-custom text-white shadow-lg" style="border-radius: 1rem; background-color: rgba(0, 0, 0, 0.5);">
+                <section aria-label="Login" class="card card-dark-custom text-white shadow-lg" style="border-radius: 1rem; background-color: rgba(0, 0, 0, 0.5);">
                     <div class="card-body p-5 text-center"> 
 
                         <div class="mb-md-2 mt-md-2">
 
-                            <h2 class="fw-bold mb-2 text-uppercase">Sudoku 4x4</h2> 
-                            <p class="text-white-50 mb-5">¡Ingresá tu usuario y contraseña!</p> 
+                            <header>
+                                <h2 class="fw-bold mb-2 text-uppercase">Sudoku 4x4</h2> 
+                                <p class="text-white-50 mb-5">¡Ingresá tu usuario y contraseña!</p> 
+                            </header> 
                         
                             <!-- Sección para mostrar mensajes de éxito  -->
                             <!-- `session()->getFlashdata()` obtiene un mensaje que solo se muestra una vez y luego se elimina. Es útil para notificaciones. -->
@@ -65,11 +67,23 @@
                         </div>
 
                     </div>
-                </div>
+                </section>
             </div>
         </div>
-    </div>
+    </main>
     <!-- Inclusión de scripts de JavaScript -->
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="text-white-50 fs-6">&copy; 2025 SudokuGame</span>
+                <a href="https://github.com/Tomacods/Sudoku_ExamenFinal_LDPL" target="_blank" class="text-white opacity-75 text-decoration-none d-flex align-items-center gap-2">
+                    <img src="<?= base_url('images/github.svg') ?>" alt="GitHub" width="20" height="20">
+                    <span>Tomacods</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
     <script src="<?= base_url('bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 </body>
 

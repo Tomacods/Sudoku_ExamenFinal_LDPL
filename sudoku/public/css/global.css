@@ -7,11 +7,15 @@ body.dark-mode {
     background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
     min-height: 100vh;
     color: white;
+    /* Sticky footer setup */
+    display: flex;
+    flex-direction: column;
 }
 
 /* Ajuste para los Globos en fondo oscuro */
 .globo-dificultad {
-    background-color: rgba(255, 255, 255, 0.1); /* Semitransparente */
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Semitransparente */
     color: rgba(255, 255, 255, 0.9);
     border: 2px solid rgba(255, 255, 255, 0.2);
 }
@@ -44,4 +48,23 @@ body.dark-mode {
 /* Ocultar listas */
 .d-none {
     display: none !important;
+}
+
+/* Footer Semantic Sticky */
+.footer {
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Un poco más oscuro que el navbar para contraste */
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    /* Ajuste para z-index si hiciera falta */
+    z-index: 1000;
+}
+
+/* Forzar que el main ocupe el espacio disponible para empujar el footer */
+main {
+    flex: 1;
+    width: 100%;
+    /* Asegurar ancho completo en flex column */
 }

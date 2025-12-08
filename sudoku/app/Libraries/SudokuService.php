@@ -10,9 +10,6 @@ class SudokuService
 {
     /**
      * Genera un nuevo puzzle de Sudoku con un número de pistas objetivo.
-     *
-     * @param int $pistasObjetivo El número de celdas visibles deseadas.
-     * @return array Contiene 'tableroJuego' y 'tableroResuelto'.
      */
     public function generarPuzzle(int $pistasObjetivo): array
     {
@@ -20,7 +17,7 @@ class SudokuService
         $maxIntentos = 100;// Límite de seguridad para evitar un bucle infinito si la generación falla.
 
           // el bucle intenta generar un tablero que cumpla exactamente con el número de pistas.
-        // A veces, al quitar una celda, el tablero resultante tiene más pistas de las deseadas en ese caso, se descarta y se genera uno nuevo.
+        // A veces, al quitar una celda, el tablero resultante tiene más pistas de las deseadas en ese caso, se descarta y se genera uno nuevo
         do {
             $tableroResuelto = $this->generarTableroValido(); //genera un tablero resuelto completo
             $tableroJuego = $this->ocultarCeldasInteligente($tableroResuelto, $pistasObjetivo); //oculta celdas para crear el juego
@@ -34,8 +31,7 @@ class SudokuService
         ];
     }
 
-    /**
-     * Genera un tablero de Sudoku 4x4 completamente resuelto y válido.*/
+    /**Genera un tablero de Sudoku 4x4 completamente resuelto y válido.*/
     private function generarTableroValido(): array
     {
         $base = [1, 2, 3, 4, 3, 4, 1, 2, 2, 1, 4, 3, 4, 3, 2, 1]; // Solución válida base
@@ -53,15 +49,9 @@ class SudokuService
         return $nuevoTablero;
     }
 
-    /**
-     * Oculta celdas de un tablero resuelto asegurando que la solución siga siendo única.
-     */
+    /**Oculta celdas de un tablero resuelto asegurando que la solución siga siendo única.*/
 
-    /**
-     * Lógica principal para crear un puzzle con una única solución.
-     * Toma un tablero resuelto y elimina celdas una por una, asegurándose
-     * de que el puzzle resultante siga teniendo una sola solución posible.
-     */
+    /**Lógica principal para crear un puzzle con una única solución.Toma un tablero resuelto y elimina celdas una por una, asegurándose de que el puzzle resultante siga teniendo una sola solución posible.*/
     private function ocultarCeldasInteligente(array $tablero, int $pistasObjetivo): array
     {
         $tableroJuego = $tablero;

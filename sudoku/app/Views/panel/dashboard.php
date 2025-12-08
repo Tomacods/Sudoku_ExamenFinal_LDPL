@@ -23,7 +23,7 @@
         </div>
     </nav>
 
-    <div class="container">
+    <main class="container">
 
         <?php if (session()->getFlashdata('mensaje_juego')): ?>
             <div class="alert alert-success alert-dismissible fade show shadow-lg bg-success text-white border-0" role="alert">
@@ -32,7 +32,7 @@
             </div>
         <?php endif; ?>
 
-        <div class="card card-dark-custom text-white mb-4 shadow-lg" style="background-color: rgba(0,0,0,0.4); border: none;">
+        <section aria-label="Historial Reciente" class="card card-dark-custom text-white mb-4 shadow-lg" style="background-color: rgba(0,0,0,0.4); border: none;">
             <div class="card-body">
                 <h4 class="card-title">Historial Reciente</h4>
                 <?php if ($ultimaPartida): ?>
@@ -47,12 +47,12 @@
                     <p class="mb-0 opacity-75">Todavía no jugaste ninguna partida. ¡Esta será la primera!</p>
                 <?php endif; ?>
             </div>
-        </div>
+        </section>
 
-        <div class="card card-dark-custom text-white shadow-lg" style="background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
-            <div class="card-header bg-transparent border-bottom border-light text-center">
+        <section aria-label="Nueva Partida" class="card card-dark-custom text-white shadow-lg" style="background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
+            <header class="card-header bg-transparent border-bottom border-light text-center">
                 <h3 class="fw-bold mb-0">Nueva Partida</h3>
-            </div>
+            </header>
             <div class="card-body text-center p-5">
 
                 <form action="<?= base_url('sudoku/crear') ?>" method="post">
@@ -83,9 +83,21 @@
                     </button>
                 </form>
             </div>
-        </div>
+        </section>
 
-    </div>
+    </main>
+
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="text-white-50 fs-6">&copy; 2025 SudokuGame</span>
+                <a href="https://github.com/Tomacods/Sudoku_ExamenFinal_LDPL" target="_blank" class="text-white opacity-75 text-decoration-none d-flex align-items-center gap-2">
+                    <img src="<?= base_url('images/github.svg') ?>" alt="GitHub" width="20" height="20">
+                    <span>Tomacods</span>
+                </a>
+            </div>
+        </div>
+    </footer>
 
     <script src="<?= base_url('bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 </body>
