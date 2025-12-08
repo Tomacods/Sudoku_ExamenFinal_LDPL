@@ -10,12 +10,23 @@ class AuthController extends BaseController
     /** Muestra la vista del formulario de registro de usuarios.*/
     public function registro() // la funcion registro sirve para mostrar el formulario de registro
     {
+        // Si está logueado, lo mandamos al panel
+        if (session()->has('id')) {
+            return redirect()->to('panel');
+        }
+
         return view('auth/registro');
     }
 
     /*Muestra la vista del formulario de inicio de sesión.*/
+    /*Muestra la vista del formulario de inicio de sesión.*/
     public function login()
     {
+        // Si está logueado, lo mandamos al panel
+        if (session()->has('id')) {
+            return redirect()->to('panel');
+        }
+
         return view('auth/login');
     }
     /**Procesa los datos del formulario de registro.
