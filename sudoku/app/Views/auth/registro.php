@@ -36,7 +36,7 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3 text-start">
                                         <label class="form-label text-white-50">Nombre</label>
-                                        <input type="text" name="nombre" class="form-control form-control-lg" value="<?= old('nombre') ?>" required />
+                                        <input type="text" name="nombre" class="form-control form-control-lg" value="<?= old('nombre') ?>" required /> <!--el old() es para que el valor que se ingreso en el campo no se borre si hay un error-->
                                     </div>
                                     <div class="col-md-6 mb-3 text-start">
                                         <label class="form-label text-white-50">Apellido</label>

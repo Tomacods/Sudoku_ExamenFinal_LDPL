@@ -34,12 +34,12 @@
 
         <div class="card card-dark-custom text-white mb-4 shadow-lg" style="background-color: rgba(0,0,0,0.4); border: none;">
             <div class="card-body">
-                <h4 class="card-title">📜 Historial Reciente</h4>
+                <h4 class="card-title">Historial Reciente</h4>
                 <?php if ($ultimaPartida): ?>
                     <p class="mb-0 opacity-75">
                         Tu última partida fue el <strong><?= date('d/m/Y H:i', strtotime($ultimaPartida['fecha'])) ?></strong>
                         y el resultado fue:
-                        <span class="badge bg-<?= $ultimaPartida['resultado'] == 'victoria' ? 'success' : 'danger' ?>">
+                        <span class="badge bg-<?= $ultimaPartida['resultado'] == 'victoria' ? 'success' : 'danger' ?>"> <!-- si el resultado es victoria, el badge es success, es decir verde, si no es victoria, el badge es danger, es decir rojo-->
                             <?= strtoupper($ultimaPartida['resultado']) ?>
                         </span>
                     </p>
@@ -51,7 +51,7 @@
 
         <div class="card card-dark-custom text-white shadow-lg" style="background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
             <div class="card-header bg-transparent border-bottom border-light text-center">
-                <h3 class="fw-bold mb-0">🎮 Nueva Partida</h3>
+                <h3 class="fw-bold mb-0">Nueva Partida</h3>
             </div>
             <div class="card-body text-center p-5">
 
@@ -79,7 +79,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-light btn-lg px-5 mt-4 fw-bold text-primary shadow">
-                        🚀 ¡Jugar Ahora!
+                        ¡Jugar Ahora!
                     </button>
                 </form>
             </div>
