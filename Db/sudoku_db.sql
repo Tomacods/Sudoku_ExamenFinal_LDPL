@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3307
--- Tiempo de generación: 21-11-2025 a las 13:24:17
+-- Tiempo de generación: 09-12-2025 a las 13:01:57
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -98,7 +98,60 @@ INSERT INTO `partidas` (`id`, `usuario_id`, `nivel`, `tiempo_segundos`, `fecha`,
 (55, 1, 'facil', 22, '2025-11-21 07:29:27', 'victoria'),
 (56, 1, 'facil', 25, '2025-11-21 07:35:00', 'victoria'),
 (57, 1, 'facil', 23, '2025-11-21 07:36:35', 'victoria'),
-(58, 1, 'facil', 23, '2025-11-21 07:37:51', 'victoria');
+(58, 1, 'facil', 23, '2025-11-21 07:37:51', 'victoria'),
+(59, 9, 'facil', 25, '2025-11-22 22:03:41', 'victoria'),
+(60, 9, 'medio', 26, '2025-11-22 22:04:21', 'derrota'),
+(61, 9, 'medio', 42, '2025-11-22 22:05:24', 'victoria'),
+(62, 9, 'dificil', 96, '2025-11-22 22:07:06', 'derrota'),
+(63, 9, 'dificil', 66, '2025-11-22 22:09:10', 'victoria'),
+(64, 9, 'dificil', 46, '2025-11-22 22:10:51', 'victoria'),
+(65, 9, 'dificil', 103, '2025-11-22 22:12:45', 'victoria'),
+(66, 1, 'facil', 11, '2025-11-25 06:31:59', 'victoria'),
+(67, 1, 'facil', 27, '2025-11-25 07:40:57', 'victoria'),
+(68, 1, 'medio', 25, '2025-11-25 07:41:26', 'victoria'),
+(69, 1, 'medio', 27, '2025-11-25 07:42:04', 'derrota'),
+(70, 1, 'medio', 18, '2025-11-25 07:42:36', 'victoria'),
+(71, 1, 'medio', 22, '2025-11-25 07:43:08', 'victoria'),
+(72, 1, 'dificil', 58, '2025-11-25 07:44:50', 'victoria'),
+(73, 1, 'medio', 67, '2025-11-25 08:14:32', 'victoria'),
+(74, 1, 'facil', 24, '2025-11-29 09:12:51', 'victoria'),
+(75, 1, 'facil', 19, '2025-12-01 08:35:43', 'victoria'),
+(76, 1, 'facil', 18, '2025-12-01 08:38:29', 'victoria'),
+(77, 1, 'facil', 19, '2025-12-01 08:39:31', 'victoria'),
+(78, 1, 'facil', 19, '2025-12-03 08:48:15', 'victoria'),
+(79, 1, 'facil', 20, '2025-12-03 08:54:25', 'victoria'),
+(80, 1, 'facil', 19, '2025-12-03 08:57:46', 'victoria'),
+(81, 1, 'facil', 26, '2025-12-03 08:58:45', 'victoria'),
+(82, 1, 'facil', 13, '2025-12-03 09:29:06', 'victoria'),
+(83, 1, 'facil', 35, '2025-12-03 11:45:13', 'victoria'),
+(84, 1, 'dificil', 1, '2025-12-03 11:52:29', 'derrota'),
+(85, 1, 'facil', 11, '2025-12-04 09:21:12', 'derrota'),
+(86, 1, 'facil', 18, '2025-12-04 09:22:03', 'victoria'),
+(87, 1, 'facil', 1, '2025-12-04 09:26:44', 'derrota'),
+(88, 1, 'facil', 39, '2025-12-04 09:27:37', 'derrota'),
+(89, 1, 'facil', 137, '2025-12-04 09:33:12', 'derrota'),
+(90, 1, 'facil', 2, '2025-12-04 09:41:59', 'derrota'),
+(91, 1, 'facil', 1, '2025-12-04 09:42:12', 'derrota'),
+(92, 1, 'facil', 17, '2025-12-04 09:42:32', 'victoria'),
+(93, 1, 'facil', 6, '2025-12-04 09:42:46', 'derrota'),
+(94, 1, 'facil', 48, '2025-12-04 09:43:28', 'derrota'),
+(95, 1, 'facil', 1, '2025-12-04 09:51:15', 'derrota'),
+(96, 1, 'facil', 39, '2025-12-04 09:51:57', 'victoria'),
+(97, 1, 'facil', 0, '2025-12-04 09:52:04', 'derrota'),
+(98, 1, 'facil', 21, '2025-12-04 09:52:42', 'victoria'),
+(99, 1, 'facil', 14, '2025-12-04 09:57:46', 'victoria'),
+(100, 1, 'facil', 79, '2025-12-04 10:37:47', 'victoria'),
+(101, 1, 'facil', 8, '2025-12-04 10:38:15', 'derrota'),
+(102, 1, 'facil', 21, '2025-12-05 09:59:54', 'victoria'),
+(103, 1, 'facil', 532, '2025-12-05 10:18:49', 'derrota'),
+(104, 10, 'dificil', 36, '2025-12-07 12:04:14', 'victoria'),
+(105, 10, 'dificil', 33, '2025-12-07 12:05:05', 'victoria'),
+(106, 10, 'medio', 20, '2025-12-07 12:05:34', 'victoria'),
+(107, 10, 'facil', 16, '2025-12-07 12:05:57', 'victoria'),
+(108, 10, 'facil', 35, '2025-12-07 12:07:15', 'victoria'),
+(109, 1, 'facil', 25, '2025-12-08 09:52:15', 'victoria'),
+(110, 1, 'medio', 1, '2025-12-08 09:53:18', 'derrota'),
+(111, 1, 'facil', 4, '2025-12-08 12:06:10', 'derrota');
 
 -- --------------------------------------------------------
 
@@ -125,7 +178,9 @@ INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `email`, `usuario`, `passwor
 (4, 'Paola', 'Quiroga', 'paolaquiroga282@gmail.com', 'paola', '$2y$10$JBhL6AyCrMqZB60tQ79vBukSS0I/njeP1K8Mu3VLYwr5bhwhWUzca', '2025-11-17 09:15:52'),
 (6, 'Tomas', 'Da silva', 'Tomasds15@gmail.com', 'tomas', '$2y$10$55plRkOl2DVUFD8XQ/GabOfb3.IwtkaZldq6Ia2obojpHWg4rv3iC', '2025-11-18 07:44:18'),
 (7, 'Mora', 'Molina', 'mor4lina2003@gmail.com', 'mora', '$2y$10$HXelJvO6WSwd5FNUiCAPWeP.YZVYcj6/5dJ5CCvF4P4fF57m8JgSq', '2025-11-20 07:50:00'),
-(8, 'Federica', 'Roldan', 'federoldan229@gmail.com', 'fede', '$2y$10$I/p27bzlm2fbs5GV2Vf95O8znjx1TWvdtVJDrozO619twN9kuth5.', '2025-11-20 07:51:47');
+(8, 'Federica', 'Roldan', 'federoldan229@gmail.com', 'fede', '$2y$10$I/p27bzlm2fbs5GV2Vf95O8znjx1TWvdtVJDrozO619twN9kuth5.', '2025-11-20 07:51:47'),
+(9, 'Antonella ', 'Olavarria', 'Olavarriatone200@gmail.com', 'Tone', '$2y$10$lTyM2OohUeK77/U9dbZjoOn47Ks24dvKygx1khXfLLPMiFwyfa.P6', '2025-11-22 22:02:58'),
+(10, 'lucas', 'benavides', 'lucasbenax@gmail.com', 'xaneb', '$2y$10$uzRsMdzf7E/Qpj.He7y1Ne4ZAI40tEdhG6Fh0vV/ZA7miOz3DlDxa', '2025-12-07 12:03:14');
 
 --
 -- Índices para tablas volcadas
@@ -153,13 +208,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `partidas`
 --
 ALTER TABLE `partidas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
