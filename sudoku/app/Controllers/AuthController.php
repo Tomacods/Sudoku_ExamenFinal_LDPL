@@ -10,7 +10,7 @@ class AuthController extends BaseController
     /** Muestra la vista del formulario de registro de usuarios.*/
     public function registro() // la funcion registro sirve para mostrar el formulario de registro
     {
-        // Si está logueado, lo mandamos al panel
+        // Si está logueado, lo mando al panel revisando si tiene un id 
         if (session()->has('id')) {
             return redirect()->to('panel');
         }
@@ -19,10 +19,9 @@ class AuthController extends BaseController
     }
 
     /*Muestra la vista del formulario de inicio de sesión.*/
-    /*Muestra la vista del formulario de inicio de sesión.*/
     public function login()
     {
-        // Si está logueado, lo mandamos al panel
+        // Si está logueado, lo mando al panel
         if (session()->has('id')) {
             return redirect()->to('panel');
         }
@@ -61,11 +60,9 @@ class AuthController extends BaseController
     }
 
 
-    /**
-     * Procesa los datos del formulario de login para autenticar al usuario.
+    /** Procesa los datos del formulario de login para autenticar al usuario.
      * Verifica el usuario y la contraseña. Si son correctos, crea una sesión
-     * y redirige al panel principal. Si no, redirige al login con un mensaje de error.
-     */
+     * y redirige al panel principal. Si no, redirige al login con un mensaje de error.*/
     public function autenticar()
     {
         $userModel = new UserModel();
@@ -89,10 +86,8 @@ class AuthController extends BaseController
         return redirect()->to('login')->with('error', 'Usuario o contraseña incorrectos');
     }
 
-    /**
-     * Cierra la sesión del usuario.
-     * Destruye todos los datos de la sesión actual y redirige al formulario de login.
-     */
+    /** Cierra la sesión del usuario.
+     * Destruye todos los datos de la sesión actual y redirige al formulario de login   */
     public function logout()
     {
         session()->destroy(); //el destroy es una funcion de codeigniter que destruye toda la sesion

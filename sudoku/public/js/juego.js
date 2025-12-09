@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Actualizamos el timer inmediatamente y luego cada segundo
+    // Actualiza el timer inmediatamente y luego cada segundo
     actualizarTimer();
     const intervalID = setInterval(actualizarTimer, 1000);
 
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // --- LÓGICA DEL FORMULARIO + SWEETALERT ---
+    // --- LÓGICA DEL FORMULARIO CON SWEETALERT ---
     if (formSudoku) {
         formSudoku.addEventListener("submit", function (e) {
             e.preventDefault();
