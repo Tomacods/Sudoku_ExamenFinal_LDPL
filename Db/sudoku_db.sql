@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3307
--- Tiempo de generación: 09-12-2025 a las 13:01:57
+-- Tiempo de generación: 14-12-2025 a las 12:57:54
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -151,7 +151,18 @@ INSERT INTO `partidas` (`id`, `usuario_id`, `nivel`, `tiempo_segundos`, `fecha`,
 (108, 10, 'facil', 35, '2025-12-07 12:07:15', 'victoria'),
 (109, 1, 'facil', 25, '2025-12-08 09:52:15', 'victoria'),
 (110, 1, 'medio', 1, '2025-12-08 09:53:18', 'derrota'),
-(111, 1, 'facil', 4, '2025-12-08 12:06:10', 'derrota');
+(111, 1, 'facil', 4, '2025-12-08 12:06:10', 'derrota'),
+(112, 1, 'facil', 23, '2025-12-10 21:10:40', 'victoria'),
+(113, 1, 'facil', 1, '2025-12-10 21:10:55', 'derrota'),
+(114, 12, 'facil', 22, '2025-12-12 20:28:50', 'victoria'),
+(115, 12, 'medio', 18, '2025-12-12 20:29:13', 'victoria'),
+(116, 12, 'dificil', 25, '2025-12-12 20:29:43', 'victoria'),
+(117, 12, 'dificil', 15, '2025-12-12 20:30:21', 'victoria'),
+(118, 12, 'medio', 18, '2025-12-12 20:30:44', 'victoria'),
+(119, 12, 'facil', 14, '2025-12-12 20:31:03', 'victoria'),
+(120, 13, 'facil', 21, '2025-12-12 20:33:55', 'victoria'),
+(121, 13, 'medio', 28, '2025-12-12 20:34:32', 'derrota'),
+(122, 13, 'dificil', 39, '2025-12-12 20:35:17', 'victoria');
 
 -- --------------------------------------------------------
 
@@ -180,7 +191,10 @@ INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `email`, `usuario`, `passwor
 (7, 'Mora', 'Molina', 'mor4lina2003@gmail.com', 'mora', '$2y$10$HXelJvO6WSwd5FNUiCAPWeP.YZVYcj6/5dJ5CCvF4P4fF57m8JgSq', '2025-11-20 07:50:00'),
 (8, 'Federica', 'Roldan', 'federoldan229@gmail.com', 'fede', '$2y$10$I/p27bzlm2fbs5GV2Vf95O8znjx1TWvdtVJDrozO619twN9kuth5.', '2025-11-20 07:51:47'),
 (9, 'Antonella ', 'Olavarria', 'Olavarriatone200@gmail.com', 'Tone', '$2y$10$lTyM2OohUeK77/U9dbZjoOn47Ks24dvKygx1khXfLLPMiFwyfa.P6', '2025-11-22 22:02:58'),
-(10, 'lucas', 'benavides', 'lucasbenax@gmail.com', 'xaneb', '$2y$10$uzRsMdzf7E/Qpj.He7y1Ne4ZAI40tEdhG6Fh0vV/ZA7miOz3DlDxa', '2025-12-07 12:03:14');
+(10, 'lucas', 'benavides', 'lucasbenax@gmail.com', 'xaneb', '$2y$10$uzRsMdzf7E/Qpj.He7y1Ne4ZAI40tEdhG6Fh0vV/ZA7miOz3DlDxa', '2025-12-07 12:03:14'),
+(11, 'MARTA BEATRIZ', 'RIVERA', 'Vero_fmanantial@hotmail.com', 'vero', '$2y$10$/AoKOSveKZMQx2m3cbCg0.YzFFS5yf0HyxfFyafPPyTeODFuKMy/G', '2025-12-11 11:09:38'),
+(12, 'Lucas', 'Gonzalez', 'lucaseg15@outlook.com', 'lucaseg', '$2y$10$pkvq0heoJYvePYTc43MHzuPh6NyYBhk3wT/VpJbTJL7EZKZyxolsu', '2025-12-12 20:28:12'),
+(13, 'César', 'Millavanque', 'cesarmiuni@gmail.com', 'cesarmi99', '$2y$10$j7mm3PY5pCmIAVmfPeEln.FUth7MmztFhwKb1Hio2R1sFQR8NJf0G', '2025-12-12 20:33:19');
 
 --
 -- Índices para tablas volcadas
@@ -208,13 +222,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `partidas`
 --
 ALTER TABLE `partidas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas
